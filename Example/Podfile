@@ -1,11 +1,5 @@
 use_frameworks!
 
-target 'SpotlightSearch_Example' do
+target 'SwiftUIExample' do
   pod 'SpotlightSearch', :path => '../'
-
-  target 'SpotlightSearch_Tests' do
-    inherit! :search_paths
-
-    pod 'FBSnapshotTestCase' , '~> 2.1.4'
-  end
 end

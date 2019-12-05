@@ -8,8 +8,9 @@
 
 import SwiftUI
 
-struct SpotlightSearch<Content>: View where Content: View {
+public struct SpotlightSearch<Content>: View where Content: View {
     // MARK: - SwiftUI Instance Variables
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
     @ObservedObject var spotlightSearchVM: SpotlightSearchVM
     @Binding var isSearching: Bool
 
@@ -21,7 +22,7 @@ struct SpotlightSearch<Content>: View where Content: View {
     var content: () -> Content
     
     // MARK: - Initializers
-    init(searchKeywords: [String],
+    public init(searchKeywords: [String],
          isSearching: Binding<Bool>,
          didChangeSearchText: @escaping (String) -> Void,
          didTapSearchItem: @escaping (String) -> Void,
@@ -52,13 +53,13 @@ struct SpotlightSearch<Content>: View where Content: View {
     }
 
     // MARK: - Body
-    var body: some View {
+    public var body: some View {
         return AnyView(
             GeometryReader { geometry in
                 ZStack(alignment: .center) {
                     self.content()
                         .disabled(false)
-                        .blur(radius: self.isSearching ? 10.0 : 0)
+                        .blur(radius: self.isSearching ? 15.0 : 0)
 
                     if self.isSearching {
                         self.searchBar
@@ -85,12 +86,13 @@ extension SpotlightSearch {
                             }
                     })
                     .textFieldStyle(DefaultTextFieldStyle())
-                    .foregroundColor(.white)
+                    .foregroundColor(.gray)
                     .font(Font.system(size: 30, weight: .light, design: .rounded))
                     .keyboardType(.default)
                     .modifier(ClearAllTextModifier(text: self.$spotlightSearchVM.searchingText))
                     .padding([.leading], LEADING_PADDING + ICON_WIDTH + 30)
                     .padding([.trailing], LEADING_PADDING)
+                    .shadow(color: Color.black, radius: 0.1, x: 0.1, y: 0.1)
                 
                 HStack {
                     Image(systemName: "magnifyingglass")
@@ -110,6 +112,9 @@ extension SpotlightSearch {
                     self.spotlightSearchVM.searchingText = found
                 }) {
                     Text(found)
+                        .foregroundColor(self.colorScheme == .dark ? .white : .gray)
+                        .font(Font.system(size: 18, weight: .light, design: .rounded))
+                        .shadow(color: Color.black, radius: 0.1, x: 0.1, y: 0.1)
                 }
             }
             .colorMultiply(Color.blue)

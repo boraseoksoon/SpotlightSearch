@@ -1,17 +1,14 @@
 //
-//  ContentView.swift
+//  Fetchable.swift
 //  SwiftUIExample
 //
 //  Created by Seoksoon Jang on 2019/12/02.
 //  Copyright © 2019 CocoaPods. All rights reserved.
 //
 
-import SwiftUI
+import Foundation
 import Combine
 
-struct ContentView: View {
-    // MARK: - Body
-    var body: some View {
-        ItemListView()
-    }
+protocol Fetchable {
+    func fetchItems(page: Int?) -> AnyPublisher<[Photo], CombineNetworkError>
 }
