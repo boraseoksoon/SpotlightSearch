@@ -10,7 +10,7 @@ import SwiftUI
 
 struct SpotlightSearch<Content>: View where Content: View {
     // MARK: - SwiftUI Instance Variables
-    @ObservedObject var SpotlightSearchVM: SpotlightSearchVM
+    @ObservedObject var spotlightSearchVM: SpotlightSearchVM
     @Binding var isSearching: Bool
 
     // MARK: - Instance Variables
@@ -47,8 +47,8 @@ struct SpotlightSearch<Content>: View where Content: View {
         self.didTapSearchItem = didTapSearchItem
         self.didChangeSearchText = didChangeSearchText
         
-        self.SpotlightSearchVM = SpotlightSearchVM(searchKeywords: searchKeywords,
-                                       didChangeSearchText: didChangeSearchText)
+        self.spotlightSearchVM = SpotlightSearchVM(searchKeywords: searchKeywords,
+                                                   didChangeSearchText: didChangeSearchText)
     }
 
     // MARK: - Body
@@ -78,7 +78,7 @@ extension SpotlightSearch {
 
             ZStack {
                 TextField("Search Anything",
-                          text: self.$SpotlightSearchVM.searchingText,
+                          text: self.$spotlightSearchVM.searchingText,
                           onCommit: {
                             withAnimation(.easeIn(duration: 1.0)) {
                                 self.isSearching = false
@@ -88,7 +88,7 @@ extension SpotlightSearch {
                     .foregroundColor(.white)
                     .font(Font.system(size: 30, weight: .light, design: .rounded))
                     .keyboardType(.default)
-                    .modifier(ClearAllTextModifier(text: self.$SpotlightSearchVM.searchingText))
+                    .modifier(ClearAllTextModifier(text: self.$spotlightSearchVM.searchingText))
                     .padding([.leading], LEADING_PADDING + ICON_WIDTH + 30)
                     .padding([.trailing], LEADING_PADDING)
                 
@@ -104,10 +104,10 @@ extension SpotlightSearch {
                 }
             }
                         
-            List(self.SpotlightSearchVM.founds, id: \.self) { found in
+            List(self.spotlightSearchVM.founds, id: \.self) { found in
                 Button(action: {
                     self.didTapSearchItem(found)
-                    self.SpotlightSearchVM.searchingText = found
+                    self.spotlightSearchVM.searchingText = found
                 }) {
                     Text(found)
                 }
