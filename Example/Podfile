@@ -3,3 +3,7 @@ use_frameworks!
 target 'SwiftUIExample' do
   pod 'SpotlightSearch', :path => '../'
 end
+
+target 'QuickExample' do
+  pod 'SpotlightSearch', :path => '../'
+end

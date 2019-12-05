@@ -1,5 +1,5 @@
 PODS:
-  - SpotlightSearch (0.1.2)
+  - SpotlightSearch (0.1.3)
 
 DEPENDENCIES:
   - SpotlightSearch (from `../`)
@@ -9,8 +9,8 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  SpotlightSearch: 30ce7f0aa34bdb6e4c846e0c678234086468900e
+  SpotlightSearch: e5b6494ddcc4cffd6cb89e634a68e509c970519e
 
-PODFILE CHECKSUM: 84959e52c815f312a04b434ab4e26796ac8f2514
+PODFILE CHECKSUM: c5edd0be0f2e295882410451483716b366a098d3
 
 COCOAPODS: 1.8.4
