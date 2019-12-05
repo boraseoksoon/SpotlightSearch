@@ -17,7 +17,7 @@ class SpotlightSearchVM: ObservableObject {
     @Published var founds: [String] = UnArchiveObjectsFromUserDefault(key: KEY_FOUNDS)
 
     // MARK: - Model
-    private let model: SpotlightModel
+    private let model: SpotlightSearchModel
     
     // MARK: - Instance Variables
     private var didChangeSearchText: (String) -> Void
@@ -32,7 +32,7 @@ class SpotlightSearchVM: ObservableObject {
         
         self.didChangeSearchText = didChangeSearchText
         
-        self.model = SpotlightModel(searchKeywords: searchKeywords,
+        self.model = SpotlightSearchModel(searchKeywords: searchKeywords,
                                     searchResultSubject:searchResultSubject)
         self.bind()
     }

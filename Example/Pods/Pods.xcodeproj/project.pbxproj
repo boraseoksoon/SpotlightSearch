@@ -14,12 +14,12 @@
 		1F2C78757A8F2243CC9F18B6877901BC /* SpotlightSearch-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = B765C27F2363414EADF1A10C29587CE0 /* SpotlightSearch-dummy.m */; };
 		2DCFF0CE0BD295F1D46D3247F36B192C /* UIImage+Compare.m in Sources */ = {isa = PBXBuildFile; fileRef = EF53D290F564A9B10CEF56C9DC2010F2 /* UIImage+Compare.m */; };
 		40039E0AF0D764360B1D4FC4F7950D2E /* UIApplication+StrictKeyWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A3ACA72AE9B776E644F6D159AB3E80B /* UIApplication+StrictKeyWindow.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		47996FB42399224D003218FD /* SpotlightVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47996FA62399224D003218FD /* SpotlightVM.swift */; };
+		47996FB42399224D003218FD /* SpotlightSearchVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47996FA62399224D003218FD /* SpotlightSearchVM.swift */; };
 		47996FB52399224D003218FD /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47996FA92399224D003218FD /* Constants.swift */; };
 		47996FB62399224D003218FD /* SpotlightError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47996FAB2399224D003218FD /* SpotlightError.swift */; };
-		47996FB72399224D003218FD /* SpotlightModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47996FAD2399224D003218FD /* SpotlightModel.swift */; };
+		47996FB72399224D003218FD /* SpotlightSearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47996FAD2399224D003218FD /* SpotlightSearchModel.swift */; };
 		47996FB82399224D003218FD /* ClearAllTextModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47996FB02399224D003218FD /* ClearAllTextModifier.swift */; };
-		47996FB92399224D003218FD /* Spotlight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47996FB12399224D003218FD /* Spotlight.swift */; };
+		47996FB92399224D003218FD /* SpotlightSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47996FB12399224D003218FD /* SpotlightSearch.swift */; };
 		47996FBA2399224D003218FD /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47996FB32399224D003218FD /* Functions.swift */; };
 		47F43DBB25047EF859792B25072B51FB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BD4ED544B638D07C7D755AF1C27116A /* Foundation.framework */; };
 		5446C7C32C2505D67C127D7CF327FD03 /* Pods-SpotlightSearch_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = CE164CCC6BD0420B794629EBE84C6CA7 /* Pods-SpotlightSearch_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -82,12 +82,12 @@
 		3A83AE4362CF1D4764E00E4602A2D648 /* FBSnapshotTestCase-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "FBSnapshotTestCase-dummy.m"; sourceTree = "<group>"; };
 		3E29C50D3CDB46CBCBD20AFA13EB3D8D /* FBSnapshotTestCase.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FBSnapshotTestCase.h; path = FBSnapshotTestCase/FBSnapshotTestCase.h; sourceTree = "<group>"; };
 		418E0471655A8CDB5EB2C290498D2FD3 /* FBSnapshotTestCase.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = FBSnapshotTestCase.xcconfig; sourceTree = "<group>"; };
-		47996FA62399224D003218FD /* SpotlightVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotlightVM.swift; sourceTree = "<group>"; };
+		47996FA62399224D003218FD /* SpotlightSearchVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotlightSearchVM.swift; sourceTree = "<group>"; };
 		47996FA92399224D003218FD /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		47996FAB2399224D003218FD /* SpotlightError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotlightError.swift; sourceTree = "<group>"; };
-		47996FAD2399224D003218FD /* SpotlightModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotlightModel.swift; sourceTree = "<group>"; };
+		47996FAD2399224D003218FD /* SpotlightSearchModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotlightSearchModel.swift; sourceTree = "<group>"; };
 		47996FB02399224D003218FD /* ClearAllTextModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClearAllTextModifier.swift; sourceTree = "<group>"; };
-		47996FB12399224D003218FD /* Spotlight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Spotlight.swift; sourceTree = "<group>"; };
+		47996FB12399224D003218FD /* SpotlightSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotlightSearch.swift; sourceTree = "<group>"; };
 		47996FB32399224D003218FD /* Functions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
 		4B562A387399FA985D5157EE4B3A15A6 /* Pods-SpotlightSearch_Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SpotlightSearch_Tests-frameworks.sh"; sourceTree = "<group>"; };
 		4BEAB3A9ADFFECCA8F0B870DB22C1659 /* Pods-SpotlightSearch_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SpotlightSearch_Example.debug.xcconfig"; sourceTree = "<group>"; };
@@ -223,7 +223,7 @@
 		47996FA52399224D003218FD /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				47996FA62399224D003218FD /* SpotlightVM.swift */,
+				47996FA62399224D003218FD /* SpotlightSearchVM.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -256,7 +256,7 @@
 		47996FAC2399224D003218FD /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				47996FAD2399224D003218FD /* SpotlightModel.swift */,
+				47996FAD2399224D003218FD /* SpotlightSearchModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -265,7 +265,7 @@
 			isa = PBXGroup;
 			children = (
 				47996FAF2399224D003218FD /* ViewModifier */,
-				47996FB12399224D003218FD /* Spotlight.swift */,
+				47996FB12399224D003218FD /* SpotlightSearch.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -659,15 +659,15 @@
 				8CE3BF0ACE07EA42DD5DAC871BF4B767 /* FBSnapshotTestCase.m in Sources */,
 				47996FBA2399224D003218FD /* Functions.swift in Sources */,
 				E8AC509D18EBF21B1FEA909652A01108 /* FBSnapshotTestCasePlatform.m in Sources */,
-				47996FB42399224D003218FD /* SpotlightVM.swift in Sources */,
+				47996FB42399224D003218FD /* SpotlightSearchVM.swift in Sources */,
 				88396E68DC05A379282F3B374F75F43C /* FBSnapshotTestController.m in Sources */,
 				9D65089019D558E5A9661F2DCAD20313 /* SwiftSupport.swift in Sources */,
 				47996FB62399224D003218FD /* SpotlightError.swift in Sources */,
 				11C410135C7E89353B480AC8DE0BFB77 /* UIApplication+StrictKeyWindow.m in Sources */,
 				2DCFF0CE0BD295F1D46D3247F36B192C /* UIImage+Compare.m in Sources */,
 				14AD81D52FAD9CF2C065C61FB00C3B4F /* UIImage+Diff.m in Sources */,
-				47996FB72399224D003218FD /* SpotlightModel.swift in Sources */,
-				47996FB92399224D003218FD /* Spotlight.swift in Sources */,
+				47996FB72399224D003218FD /* SpotlightSearchModel.swift in Sources */,
+				47996FB92399224D003218FD /* SpotlightSearch.swift in Sources */,
 				A525E29E0A8079B35B793D8A2B5FBDF2 /* UIImage+Snapshot.m in Sources */,
 				47996FB82399224D003218FD /* ClearAllTextModifier.swift in Sources */,
 			);

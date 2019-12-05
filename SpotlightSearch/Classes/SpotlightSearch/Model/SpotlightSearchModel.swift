@@ -1,5 +1,5 @@
 //
-//  SpotlightModel.swift
+//  SpotlightSearchModel.swift
 //  SwiftUIExample
 //
 //  Created by Seoksoon Jang on 2019/12/04.
@@ -9,13 +9,13 @@
 import Foundation
 import Combine
 
-struct SpotlightModel {
+struct SpotlightSearchModel {
     var searchKeywords: [String]
     let searchResultSubject: PassthroughSubject<[SearchResult], SpotlightError>
 }
 
 // MARK: - Private Methods
-extension SpotlightModel {
+extension SpotlightSearchModel {
     // TODO:
     public func searchItems(forKeyword searchingText: String) -> Void {
         let founds = self.searchKeywords
