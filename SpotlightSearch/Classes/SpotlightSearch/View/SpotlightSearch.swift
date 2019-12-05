@@ -86,7 +86,7 @@ extension SpotlightSearch {
                             }
                     })
                     .textFieldStyle(DefaultTextFieldStyle())
-                    .foregroundColor(.gray)
+                    .foregroundColor(colorScheme == .dark ? .white : .gray)
                     .font(Font.system(size: 30, weight: .light, design: .rounded))
                     .keyboardType(.default)
                     .modifier(ClearAllTextModifier(text: self.$spotlightSearchVM.searchingText))
