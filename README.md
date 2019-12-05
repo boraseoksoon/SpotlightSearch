@@ -12,6 +12,8 @@ Screenshots
 -----------
 
 ![Alt Text](https://media.giphy.com/media/ZXB9LVcRqNi7W5dZel/giphy.gif)
+![Alt Text](https://media.giphy.com/media/RfeIpyRRdJDCce9jfN/giphy.gif)
+
 <!-- short link: https://gph.is/g/amnjBwJ -->
 <!-- html5 video link :https://giphy.com/gifs/ZXB9LVcRqNi7W5dZel/html5 -->
 
