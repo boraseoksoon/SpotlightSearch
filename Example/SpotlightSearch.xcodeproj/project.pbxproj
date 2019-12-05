@@ -28,9 +28,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1A1C4A4C585A24DAFA1E418B /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		1A1C4A4C585A24DAFA1E418B /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		1E15FB8B0681D427A866853F /* Pods-SpotlightSearch_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpotlightSearch_Tests.debug.xcconfig"; path = "Target Support Files/Pods-SpotlightSearch_Tests/Pods-SpotlightSearch_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		207F4C5DEDA36CA27B32A866 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		207F4C5DEDA36CA27B32A866 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		44D458B35825B59F12F7A4A2 /* Pods-SpotlightSearch_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpotlightSearch_Example.release.xcconfig"; path = "Target Support Files/Pods-SpotlightSearch_Example/Pods-SpotlightSearch_Example.release.xcconfig"; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* SpotlightSearch_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpotlightSearch_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -43,7 +43,7 @@
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		69B53ECABCE9E89AD49A4399 /* Pods_SpotlightSearch_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SpotlightSearch_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		7A50F3CD42206E98AB6309CE /* SpotlightSearch.podspec */ = {isa = PBXFileReference; includeInIndex = 1; name = SpotlightSearch.podspec; path = ../SpotlightSearch.podspec; sourceTree = "<group>"; };
+		7A50F3CD42206E98AB6309CE /* SpotlightSearch.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = SpotlightSearch.podspec; path = ../SpotlightSearch.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		8F9D103949689814C070D987 /* Pods-SpotlightSearch_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpotlightSearch_Tests.release.xcconfig"; path = "Target Support Files/Pods-SpotlightSearch_Tests/Pods-SpotlightSearch_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		A5DA35CFDDA34B3731870DB6 /* Pods_SpotlightSearch_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SpotlightSearch_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFE5FED16DDF057CB4609BC0 /* Pods-SpotlightSearch_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpotlightSearch_Example.debug.xcconfig"; path = "Target Support Files/Pods-SpotlightSearch_Example/Pods-SpotlightSearch_Example.debug.xcconfig"; sourceTree = "<group>"; };
@@ -147,7 +147,6 @@
 				1E15FB8B0681D427A866853F /* Pods-SpotlightSearch_Tests.debug.xcconfig */,
 				8F9D103949689814C070D987 /* Pods-SpotlightSearch_Tests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -228,6 +227,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
