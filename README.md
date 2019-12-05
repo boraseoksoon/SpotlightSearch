@@ -71,7 +71,7 @@ import SwiftUI
 import SpotlightSearch
 
 struct ContentView: View {
-    /// Assuming your viewmodel is like example view model in the demo project, the way of how to use is as below.
+    /// Assuming your viewmodel is like the example view model in the demo project, the way of how to use is as below.
     /// You can clone this repo then there is SwiftUIExample target demo project in it.
     @ObservedObject var viewModel: ItemListViewModel()
     @State private var isSearching = false
@@ -188,9 +188,6 @@ SpotlightSearch is available under the MIT license. See the LICENSE file for mor
 [PhotoCell](https://apps.apple.com/us/app/observable/id1488022000?ls=1) : 
 Time and Location-based photo browsing iOS app where you can download the photos and edit as you like for free.
 
-<img align="left" width="240" height="428" src="https://firebasestorage.googleapis.com/v0/b/boraseoksoon-ff7d3.appspot.com/o/SpotlightSearch%2Fo1.png?alt=media&token=f5003b58-f10f-4858-bb27-f4b0e06f6f70">
-<img align="left" width="240" height="428" src="https://firebasestorage.googleapis.com/v0/b/boraseoksoon-ff7d3.appspot.com/o/SpotlightSearch%2Fo2.png?alt=media&token=6374ba2c-0e58-478f-81a8-11eb5a5662e2">
-<img align="left" width="240" height="428" src="https://firebasestorage.googleapis.com/v0/b/boraseoksoon-ff7d3.appspot.com/o/SpotlightSearch%2Fo4.png?alt=media&token=11e22574-b854-45bf-a0a3-4b0c596db3f9">
-
-
-
+<img align="left" width="240" height="428" src="https://firebasestorage.googleapis.com/v0/b/boraseoksoon-ff7d3.appspot.com/o/BSZoomGridScrollView%2Fo1.png?alt=media&token=f5003b58-f10f-4858-bb27-f4b0e06f6f70">
+<img align="left" width="240" height="428" src="https://firebasestorage.googleapis.com/v0/b/boraseoksoon-ff7d3.appspot.com/o/BSZoomGridScrollView%2Fo2.png?alt=media&token=6374ba2c-0e58-478f-81a8-11eb5a5662e2">
+<img align="left" width="240" height="428" src="https://firebasestorage.googleapis.com/v0/b/boraseoksoon-ff7d3.appspot.com/o/BSZoomGridScrollView%2Fo4.png?alt=media&token=11e22574-b854-45bf-a0a3-4b0c596db3f9">
