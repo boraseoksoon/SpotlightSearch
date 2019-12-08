@@ -6,7 +6,8 @@
 //  Copyright © 2019 CocoaPods. All rights reserved.
 //
 
-import CoreGraphics
+#if os(iOS)
+import UIKit
 
 // MARK: - Configuration Constants
 public let ICON_WIDTH: CGFloat = 20.0
@@ -18,3 +19,5 @@ public let ANIMATION_DURATION: Double = 0.5
 // MARK: - UserDefault Key Constants
 public let KEY_FOUNDS = "founds"
 public let KEY_SEARCHING_TEXT = "SEARCHING_TEXT"
+
+#endif

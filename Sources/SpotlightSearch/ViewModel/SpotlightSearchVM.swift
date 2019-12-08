@@ -65,7 +65,6 @@ extension SpotlightSearchVM {
                         break
                 }
             }, receiveValue: {
-                print("?0")
                 let archive = try? NSKeyedArchiver.archivedData(withRootObject: $0,
                                                            requiringSecureCoding: true)
                 UserDefaults.standard.set(archive, forKey: KEY_FOUNDS)

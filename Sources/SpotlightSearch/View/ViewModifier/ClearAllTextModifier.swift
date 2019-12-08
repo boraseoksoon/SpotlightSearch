@@ -12,22 +12,26 @@ import SwiftUI
 
 struct ClearAllTextModifier: ViewModifier {
     @Binding var text: String
+    var deleteIcon: Image
+    var deleteIconColor: Color = .gray
     
     public func body(content: Content) -> some View {
         ZStack(alignment: .trailing) {
             content
+                .padding([.trailing], 75)
             
             if !text.isEmpty {
                 Button(action: {
                     self.text = ""
                 }) {
-                    Image(systemName: "xmark.circle.fill")
+                    deleteIcon
                         .resizable()
                         .scaledToFit()
-                        .frame(width: BUTTON_WIDTH, height: BUTTON_WIDTH)
+                        .frame(width: BUTTON_WIDTH,
+                               height: BUTTON_WIDTH)
                         .foregroundColor(.gray)
                 }
-                .padding(.trailing, 15)
+                .padding(.trailing, LEADING_PADDING)
             }
         }
     }
