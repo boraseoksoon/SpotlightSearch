@@ -15,6 +15,16 @@ public struct SpotlightSearch<Content>: View where Content: View {
     @Binding var isSearching: Bool
 
     // MARK: - Instance Variables
+    var configuration = SpotlightConfiguration()
+    
+    let listItemTextColor: Color
+    let searchTextColor: Color
+    
+    let placeHolderFont: Font
+    let placeholderText: String
+    let searchIcon: Image
+    let deleteIcon: Image
+    let dismissIcon: Image
     
     // MARK: - Closures
     var didChangeSearchText: (String) -> Void
@@ -24,10 +34,10 @@ public struct SpotlightSearch<Content>: View where Content: View {
     // MARK: - Initializers
     public init(searchKeywords: [String],
          isSearching: Binding<Bool>,
+         configuration: SpotlightConfiguration = SpotlightConfiguration(),
          didChangeSearchText: @escaping (String) -> Void,
          didTapSearchItem: @escaping (String) -> Void,
          wrappingClosure: @escaping () -> Content) {
-        
         /// FIXME: THOSE GLOBAL THINGS MAY BE APPLIED TO ALL APP ALTHOUGH MODULE IS SEPARATED.
         /// BUT, THERE IS NO SUCH THING AS API BY WHICH I CAN MODIFY SWIFTUI.
         UITableView.appearance().allowsSelection = false
@@ -45,14 +55,42 @@ public struct SpotlightSearch<Content>: View where Content: View {
         self.content = wrappingClosure
         self._isSearching = isSearching
         
+        self.configuration = configuration
+        
+
+        switch self.configuration.colors {
+            case .property(listItemTextColor: let listItemTextColor,
+                           searchTextColor: let searchTextColor):
+                self.listItemTextColor = listItemTextColor
+                self.searchTextColor = searchTextColor
+        }
+        
+        switch self.configuration.placeHolder {
+            case .property(placeHolderFont: let placeHolderFont,
+                           placeholderText: let placeholderText):
+                self.placeHolderFont = placeHolderFont
+                self.placeholderText = placeholderText
+        }
+        
+        switch self.configuration.icons {
+            case .property(searchIcon: let searchIcon,
+                           deleteIcon: let deleteIcon,
+                           dismissIcon: let dismissIcon):
+                self.searchIcon = searchIcon
+                self.deleteIcon = deleteIcon
+                self.dismissIcon = dismissIcon
+        }
+
         self.didTapSearchItem = didTapSearchItem
         self.didChangeSearchText = didChangeSearchText
         
         self.spotlightSearchVM = SpotlightSearchVM(searchKeywords: searchKeywords,
                                                    didChangeSearchText: didChangeSearchText)
     }
+}
 
-    // MARK: - Body
+// MARK: - Body
+extension SpotlightSearch {
     public var body: some View {
         return AnyView(
             GeometryReader { geometry in
@@ -71,14 +109,14 @@ public struct SpotlightSearch<Content>: View where Content: View {
     }
 }
 
-// MARK: - Views 
+// MARK: - Views
 extension SpotlightSearch {
     var searchBar: some View {
         VStack {
             self.dismissView
 
             ZStack {
-                TextField("Search Anything",
+                TextField(self.placeholderText,
                           text: self.$spotlightSearchVM.searchingText,
                           onCommit: {
                             withAnimation(.easeIn(duration: 1.0)) {
@@ -86,16 +124,16 @@ extension SpotlightSearch {
                             }
                     })
                     .textFieldStyle(DefaultTextFieldStyle())
-                    .foregroundColor(colorScheme == .dark ? .white : .gray)
-                    .font(Font.system(size: 30, weight: .light, design: .rounded))
+                    .foregroundColor(self.searchTextColor)
+                    .font(self.placeHolderFont)
                     .keyboardType(.default)
-                    .modifier(ClearAllTextModifier(text: self.$spotlightSearchVM.searchingText))
+                    .modifier(ClearAllTextModifier(text: self.$spotlightSearchVM.searchingText,
+                                                   deleteIcon: self.deleteIcon))
                     .padding([.leading], LEADING_PADDING + ICON_WIDTH + 30)
-                    .padding([.trailing], LEADING_PADDING)
                     .shadow(color: Color.black, radius: 0.1, x: 0.1, y: 0.1)
                 
                 HStack {
-                    Image(systemName: "magnifyingglass")
+                    self.searchIcon
                         .resizable()
                         .scaledToFit()
                         .frame(width: ICON_WIDTH + 10, height: ICON_WIDTH + 10)
@@ -112,12 +150,11 @@ extension SpotlightSearch {
                     self.spotlightSearchVM.searchingText = found
                 }) {
                     Text(found)
-                        .foregroundColor(self.colorScheme == .dark ? .white : .gray)
                         .font(Font.system(size: 18, weight: .light, design: .rounded))
                         .shadow(color: Color.black, radius: 0.1, x: 0.1, y: 0.1)
                 }
             }
-            .colorMultiply(Color.blue)
+            .colorMultiply(self.listItemTextColor)
             
         }
     }
@@ -135,7 +172,7 @@ extension SpotlightSearch {
                         
                     }) {
                         ZStack {
-                            Image(systemName: "x.circle")
+                            self.dismissIcon
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 30.0, height: 30.0)
@@ -149,4 +186,41 @@ extension SpotlightSearch {
             .padding([.bottom], BOTTOM_PADDING * 2.5)
         )
     }
+}
+
+///
+public struct SpotlightConfiguration {
+    var placeHolder: SpotlightPlaceHolder
+    var colors: SpotlightColor
+    var icons: SpotlightIcon
+    
+    public init(
+        placeHolder: SpotlightPlaceHolder = .property(placeHolderFont: Font.system(size: 30,
+                                                                                   weight: .light,
+                                                                                   design: .rounded),
+                                                      placeholderText: "Search Anything"),
+        colors: SpotlightColor = .property(listItemTextColor: .blue, searchTextColor: .white),
+        icons: SpotlightIcon = .property(searchIcon: Image(systemName: "magnifyingglass"),
+                                         deleteIcon: Image(systemName: "xmark.circle.fill"),
+                                         dismissIcon: Image(systemName: "x.circle"))) {
+        self.placeHolder = placeHolder
+        self.colors = colors
+        self.icons = icons
+    }
+}
+
+public enum SpotlightPlaceHolder {
+    case property(placeHolderFont: Font, placeholderText: String)
+}
+
+public enum SpotlightColor {
+    case property(listItemTextColor: Color, searchTextColor: Color)
+}
+
+public enum SpotlightIcon {
+    case property(
+        searchIcon: Image,
+        deleteIcon: Image,
+        dismissIcon: Image
+    )
 }

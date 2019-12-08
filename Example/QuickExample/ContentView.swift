@@ -15,11 +15,24 @@ struct ContentView: View {
     @State private var isSearching = false
     @ObservedObject var viewModel = TestViewModel()
     
+    let conf = SpotlightConfiguration(placeHolder:.property(placeHolderFont: Font.system(size: 30,
+                                                                                         weight: .light,
+                                                                                         design: .rounded),
+                                                            placeholderText: "Search Anything"),
+                                      colors: .property(listItemTextColor: .blue, searchTextColor: .white), 
+                                      icons: .property(
+                                        searchIcon:Image(systemName: "magnifyingglass"),
+                                        deleteIcon: Image(systemName: "xmark.circle.fill"),
+                                        dismissIcon:Image(systemName: "x.circle")
+        )
+    )
+
     // MARK: - Body
     var body: some View {
         /// Step2: 😆 Declare `Spotlight` externally.
         SpotlightSearch(searchKeywords:viewModel.searchableItems,
                   isSearching:$isSearching,
+                  configuration: conf, 
                   didChangeSearchText: { self.viewModel.searchText = $0 },
                   didTapSearchItem: { self.viewModel.searchText = $0 }) {
                     /// Step3: 😎 Let's wrap SwiftUI Views in it using trailing closure.

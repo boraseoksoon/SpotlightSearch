@@ -14,7 +14,7 @@ struct DetailView: View {
     
     init(item: Photo) {
         self.item = item
-
+        
         self.imageLoader = ImageLoader(
             loadable: URL(string: item.imageURL ?? "") ?? UIImage(systemName: "xmark") ?? UIImage(),
             id: item.id
