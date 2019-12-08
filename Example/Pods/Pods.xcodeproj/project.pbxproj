@@ -12,7 +12,6 @@
 		2256FBAF72FC0ADC058D5703C93401CC /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093F18638D61DD1DBC467BD199D14BB9 /* Constants.swift */; };
 		2C3A0553569A81D4E0F5947F4720CB5C /* SpotlightSearchVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A385B448F54C10A55A33169495C19B /* SpotlightSearchVM.swift */; };
 		2FCC8AAF32E4EF9BE99176EA8E11D1D4 /* Pods-SwiftUIExample-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DB8BA8AB3ECC26674AB4773491B443C /* Pods-SwiftUIExample-dummy.m */; };
-		4767DA26239DA89A00D74E77 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4767DA25239DA89A00D74E77 /* Configuration.swift */; };
 		565036D2CB6E4D40C9430178E0B2C99E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 312B988EF117AE4DE76A268D970131FE /* UIKit.framework */; };
 		5AE6B7B18F77BD5D86518562570F7181 /* ClearAllTextModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091FC355633E2AFC3C2A34725C13F1DB /* ClearAllTextModifier.swift */; };
 		69B4DAC4EFBB4DFD2A2AD81E71D9D34E /* SpotlightSearch-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E4410BF3E792C9001DC1A85726DD221B /* SpotlightSearch-dummy.m */; };
@@ -58,7 +57,6 @@
 		3DB8BA8AB3ECC26674AB4773491B443C /* Pods-SwiftUIExample-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-SwiftUIExample-dummy.m"; sourceTree = "<group>"; };
 		3E78E0F08D564A88E5583C9B9565FC47 /* Pods-SwiftUIExample-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SwiftUIExample-Info.plist"; sourceTree = "<group>"; };
 		436BAA54A31999B53B3CC7115C55FE50 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		4767DA25239DA89A00D74E77 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Configuration.swift; path = ../../Configuration.swift; sourceTree = "<group>"; };
 		4B945ACC112AB2ACAF89D5B2700CE204 /* Functions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
 		4C1899DA3FD4F5F2F53DE3F17BA08D68 /* SpotlightSearch.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SpotlightSearch.swift; sourceTree = "<group>"; };
 		50F90E4115C38442DA7351A57E27BEBE /* Pods-SwiftUIExample-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-SwiftUIExample-acknowledgements.markdown"; sourceTree = "<group>"; };
@@ -158,14 +156,6 @@
 				8867B3D811C09625794F8EE67596B1D1 /* SpotlightSearch.podspec */,
 			);
 			name = Pod;
-			sourceTree = "<group>";
-		};
-		4767DA24239DA89000D74E77 /* Configuration */ = {
-			isa = PBXGroup;
-			children = (
-				4767DA25239DA89A00D74E77 /* Configuration.swift */,
-			);
-			path = Configuration;
 			sourceTree = "<group>";
 		};
 		4EC5FF5B8AB96A143EB1B0BF0B7FA999 /* Support Files */ = {
@@ -270,7 +260,6 @@
 		AA546ED22A8F608FEA55DCD0503C530E /* Others */ = {
 			isa = PBXGroup;
 			children = (
-				4767DA24239DA89000D74E77 /* Configuration */,
 				16398DF8F40971133996E6563F2F1D97 /* Constants */,
 				8B6F980F98E2E773B3981D9331430830 /* Error */,
 			);
@@ -497,7 +486,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4767DA26239DA89A00D74E77 /* Configuration.swift in Sources */,
 				F3F932BA8EDAC070951601C47132301E /* Pods-QuickExample-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
