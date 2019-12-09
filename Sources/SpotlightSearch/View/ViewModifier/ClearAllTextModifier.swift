@@ -7,13 +7,12 @@
 //
 
 #if os(iOS)
-
 import SwiftUI
 
 struct ClearAllTextModifier: ViewModifier {
     @Binding var text: String
     var deleteIcon: Image
-    var deleteIconColor: Color = .gray
+    var deleteIconColor: Color
     
     public func body(content: Content) -> some View {
         ZStack(alignment: .trailing) {
@@ -29,12 +28,11 @@ struct ClearAllTextModifier: ViewModifier {
                         .scaledToFit()
                         .frame(width: BUTTON_WIDTH,
                                height: BUTTON_WIDTH)
-                        .foregroundColor(.gray)
+                        .foregroundColor(deleteIconColor)
                 }
                 .padding(.trailing, LEADING_PADDING)
             }
         }
     }
 }
-
 #endif
