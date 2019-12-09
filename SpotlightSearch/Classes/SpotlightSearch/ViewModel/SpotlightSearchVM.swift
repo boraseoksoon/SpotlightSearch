@@ -6,6 +6,7 @@
 //  Copyright © 2019 CocoaPods. All rights reserved.
 //
 
+#if os(iOS)
 import Foundation
 import Combine
 
@@ -66,3 +67,5 @@ extension SpotlightSearchVM {
             .store(in: &cancellables)
     }
 }
+
+#endif

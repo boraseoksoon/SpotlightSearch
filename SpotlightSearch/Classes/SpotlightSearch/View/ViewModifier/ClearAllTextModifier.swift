@@ -6,6 +6,7 @@
 //  Copyright © 2019 CocoaPods. All rights reserved.
 //
 
+#if os(iOS)
 import SwiftUI
 
 struct ClearAllTextModifier: ViewModifier {
@@ -34,3 +35,4 @@ struct ClearAllTextModifier: ViewModifier {
         }
     }
 }
+#endif

@@ -6,6 +6,7 @@
 //  Copyright © 2019 CocoaPods. All rights reserved.
 //
 
+#if os(iOS)
 import UIKit
 
 // MARK: - Configuration Constants
@@ -18,3 +19,5 @@ public let ANIMATION_DURATION: Double = 0.5
 // MARK: - UserDefault Key Constants
 public let KEY_FOUNDS = "founds"
 public let KEY_SEARCHING_TEXT = "SEARCHING_TEXT"
+
+#endif
