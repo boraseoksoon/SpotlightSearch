@@ -6,6 +6,8 @@
 //  Copyright © 2019 CocoaPods. All rights reserved.
 //
 
+#if os(iOS)
+
 import SwiftUI
 
 public struct SpotlightSearch<Content>: View where Content: View {
@@ -246,3 +248,4 @@ public enum SpotlightIcon {
         dismissIcon: Image
     )
 }
+#endif
