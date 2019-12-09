@@ -17,14 +17,19 @@ public struct SpotlightSearch<Content>: View where Content: View {
     // MARK: - Instance Variables
     var configuration = SpotlightConfiguration()
     
-    let listItemTextColor: Color
-    let searchTextColor: Color
+    private let listItemTextColor: Color
+    private let searchTextColor: Color
     
-    let placeHolderFont: Font
-    let placeholderText: String
-    let searchIcon: Image
-    let deleteIcon: Image
-    let dismissIcon: Image
+    private let placeHolderFont: Font
+    private let placeholderText: String
+    
+    private let searchIconColor: Color
+    private let deleteIconColor: Color
+    private let dismissIconColor: Color
+    
+    private let searchIcon: Image
+    private let deleteIcon: Image
+    private let dismissIcon: Image
     
     // MARK: - Closures
     var didChangeSearchText: (String) -> Void
@@ -51,8 +56,9 @@ public struct SpotlightSearch<Content>: View where Content: View {
         
         UITableViewCell.appearance().selectionStyle = .none
         UITableViewCell.appearance().backgroundColor = .clear
-        
+                
         self.content = wrappingClosure
+        
         self._isSearching = isSearching
         
         self.configuration = configuration
@@ -60,9 +66,16 @@ public struct SpotlightSearch<Content>: View where Content: View {
 
         switch self.configuration.colors {
             case .property(listItemTextColor: let listItemTextColor,
-                           searchTextColor: let searchTextColor):
+                           searchTextColor: let searchTextColor,
+                           searchIconColor: let searchIconColor,
+                           deleteIconColor: let deleteIconColor,
+                           dismissIconColor: let dismissIconColor):
                 self.listItemTextColor = listItemTextColor
                 self.searchTextColor = searchTextColor
+            
+                self.searchIconColor = searchIconColor
+                self.deleteIconColor = deleteIconColor
+                self.dismissIconColor = dismissIconColor
         }
         
         switch self.configuration.placeHolder {
@@ -103,7 +116,6 @@ extension SpotlightSearch {
                         self.searchBar
                     }
                 }
-                
             }
         )
     }
@@ -128,7 +140,8 @@ extension SpotlightSearch {
                     .font(self.placeHolderFont)
                     .keyboardType(.default)
                     .modifier(ClearAllTextModifier(text: self.$spotlightSearchVM.searchingText,
-                                                   deleteIcon: self.deleteIcon))
+                                                   deleteIcon: self.deleteIcon,
+                                                   deleteIconColor: self.deleteIconColor))
                     .padding([.leading], LEADING_PADDING + ICON_WIDTH + 30)
                     .shadow(color: Color.black, radius: 0.1, x: 0.1, y: 0.1)
                 
@@ -137,7 +150,7 @@ extension SpotlightSearch {
                         .resizable()
                         .scaledToFit()
                         .frame(width: ICON_WIDTH + 10, height: ICON_WIDTH + 10)
-                        .foregroundColor(.blue)
+                        .foregroundColor(self.searchIconColor)
                         .padding([.leading], LEADING_PADDING)
                     
                     Spacer()
@@ -155,7 +168,6 @@ extension SpotlightSearch {
                 }
             }
             .colorMultiply(self.listItemTextColor)
-            
         }
     }
     
@@ -176,7 +188,7 @@ extension SpotlightSearch {
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 30.0, height: 30.0)
-                                .foregroundColor(.blue)
+                                .foregroundColor(self.dismissIconColor)
                                 .padding([.top, .trailing], 25)
                         }
 
@@ -199,7 +211,12 @@ public struct SpotlightConfiguration {
                                                                                    weight: .light,
                                                                                    design: .rounded),
                                                       placeholderText: "Search Anything"),
-        colors: SpotlightColor = .property(listItemTextColor: .blue, searchTextColor: .white),
+        colors: SpotlightColor = .property(listItemTextColor: .blue,
+                                           searchTextColor: .white,
+                                           searchIconColor:.blue,
+                                           deleteIconColor:.blue,
+                                           dismissIconColor:.blue),
+        
         icons: SpotlightIcon = .property(searchIcon: Image(systemName: "magnifyingglass"),
                                          deleteIcon: Image(systemName: "xmark.circle.fill"),
                                          dismissIcon: Image(systemName: "x.circle"))) {
@@ -214,7 +231,12 @@ public enum SpotlightPlaceHolder {
 }
 
 public enum SpotlightColor {
-    case property(listItemTextColor: Color, searchTextColor: Color)
+    case property(
+        listItemTextColor: Color,
+        searchTextColor: Color,
+        searchIconColor:Color,
+        deleteIconColor:Color,
+        dismissIconColor:Color)
 }
 
 public enum SpotlightIcon {

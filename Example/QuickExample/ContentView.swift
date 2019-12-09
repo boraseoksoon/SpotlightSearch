@@ -19,7 +19,11 @@ struct ContentView: View {
                                                                                          weight: .light,
                                                                                          design: .rounded),
                                                             placeholderText: "Search Anything"),
-                                      colors: .property(listItemTextColor: .blue, searchTextColor: .white), 
+                                      colors: .property(listItemTextColor: .blue,
+                                                        searchTextColor: .white,
+                                                        searchIconColor:.red,
+                                                        deleteIconColor:.gray,
+                                                        dismissIconColor:.red),
                                       icons: .property(
                                         searchIcon:Image(systemName: "magnifyingglass"),
                                         deleteIcon: Image(systemName: "xmark.circle.fill"),

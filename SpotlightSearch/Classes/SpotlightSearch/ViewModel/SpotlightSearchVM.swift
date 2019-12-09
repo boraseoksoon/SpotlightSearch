@@ -26,10 +26,6 @@ class SpotlightSearchVM: ObservableObject {
     
     // MARK: - Initializer
     init(searchKeywords: [String], didChangeSearchText: @escaping (String) -> Void) {
-        /// TODO: Fix Userdefault Workaround after Bugs of SwiftUI and Combination settle down.
-        UserDefaults.standard.removeObject(forKey: KEY_FOUNDS)
-        UserDefaults.standard.removeObject(forKey: KEY_SEARCHING_TEXT)
-        
         self.didChangeSearchText = didChangeSearchText
         
         self.model = SpotlightSearchModel(searchKeywords: searchKeywords,
