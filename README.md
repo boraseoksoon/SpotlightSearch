@@ -11,8 +11,8 @@ SpotlightSearch aims to provide macOS spotlight search UI/UX and beyond.<br>
 Screenshots
 -----------
 
-![Alt Text](https://github.com/boraseoksoon/SpotlightSearch/tree/master/gif/dark_theme.gif)
-![Alt Text](https://github.com/boraseoksoon/SpotlightSearch/tree/master/gif/white_theme.gif)
+![Alt Text](https://github.com/boraseoksoon/SpotlightSearch/blob/master/gif/dark_theme.gif)
+![Alt Text](https://github.com/boraseoksoon/SpotlightSearch/blob/master/gif/white_theme.gif)
 ![Alt Text](https://media.giphy.com/media/RfeIpyRRdJDCce9jfN/giphy.gif)
 
 
