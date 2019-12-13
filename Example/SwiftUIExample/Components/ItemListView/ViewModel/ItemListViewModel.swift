@@ -117,21 +117,42 @@ extension ItemListViewModel {
     }
     
     private func downloadImages(from items: [Photo]) -> Void {
-        DispatchQueue.global().async {
-            items.forEach { item in
-                URL(string: item.imageURL ?? "")?
-                    .loadImage(id: item.id)
+        // Combine Declarative Way
+        
+        Publishers.Sequence<[Photo], IOError>(sequence: items)
+            .sink(receiveCompletion: { _ in },
+                  receiveValue: {
+                    
+                    URL(string: $0.imageURL ?? "")?
+                    .loadImage(id: $0.id)
                     .receive(on: DispatchQueue.main)
                     .sink(
                         receiveCompletion: { _ in },
                         receiveValue: { [weak self] image in
-                            DispatchQueue.main.async {
-                                self?.images.append(image)
-                            }
+                            self?.images.append(image)
                         }
                     )
                     .store(in: &self.cancellables)
-            }
-        }
+            })
+            .store(in: &self.cancellables)
+        
+// Imperative Way
+        
+//        DispatchQueue.global().async {
+//            items.forEach { item in
+//                URL(string: item.imageURL ?? "")?
+//                    .loadImage(id: item.id)
+//                    .receive(on: DispatchQueue.main)
+//                    .sink(
+//                        receiveCompletion: { _ in },
+//                        receiveValue: { [weak self] image in
+//                            DispatchQueue.main.async {
+//                                self?.images.append(image)
+//                            }
+//                        }
+//                    )
+//                    .store(in: &self.cancellables)
+//            }
+//        }
     }    
 }

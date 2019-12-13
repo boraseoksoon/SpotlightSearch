@@ -21,9 +21,9 @@ struct ContentView: View {
                                                             placeholderText: "Search Anything"),
                                       colors: .property(listItemTextColor: .blue,
                                                         searchTextColor: .white,
-                                                        searchIconColor:.red,
-                                                        deleteIconColor:.gray,
-                                                        dismissIconColor:.red),
+                                                        searchIconColor:.blue,
+                                                        deleteIconColor:.blue,
+                                                        dismissIconColor:.blue),
                                       icons: .property(
                                         searchIcon:Image(systemName: "magnifyingglass"),
                                         deleteIcon: Image(systemName: "xmark.circle.fill"),
@@ -35,25 +35,25 @@ struct ContentView: View {
     var body: some View {
         /// Step2: 😆 Declare `Spotlight` externally.
         SpotlightSearch(searchKeywords:viewModel.searchableItems,
-                  isSearching:$isSearching,
-                  configuration: conf, 
-                  didChangeSearchText: { self.viewModel.searchText = $0 },
-                  didTapSearchItem: { self.viewModel.searchText = $0 }) {
-                    /// Step3: 😎 Let's wrap SwiftUI Views in it using trailing closure.
-                    Button(action: {
-                        withAnimation(.easeIn(duration: 0.3)) {
-                            self.isSearching.toggle()
-                        }
-                    }) {
-                        ZStack {
-                            Image(systemName: "magnifyingglass")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 80.0, height: 80.0)
-                                .foregroundColor(.blue)
-                        }
-
-                    }
+                        isSearching:$isSearching,
+                        configuration: conf,
+                        didChangeSearchText: { self.viewModel.searchText = $0 },
+                        didTapSearchItem: { self.viewModel.searchText = $0 }) {
+                            /// Step3: 😎 Let's wrap SwiftUI Views in it using trailing closure.
+                            Button(action: {
+                                withAnimation(.easeIn(duration: 0.3)) {
+                                    self.isSearching.toggle()
+                                }
+                            }) {
+                                ZStack {
+                                    Image(systemName: "magnifyingglass")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 80.0, height: 80.0)
+                                        .foregroundColor(.blue)
+                                }
+                                
+                            }
         }
     }
 }

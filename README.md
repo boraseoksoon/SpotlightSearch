@@ -11,8 +11,10 @@ SpotlightSearch aims to provide macOS spotlight search UI/UX and beyond.<br>
 Screenshots
 -----------
 
-![Alt Text](https://media.giphy.com/media/ZXB9LVcRqNi7W5dZel/giphy.gif)
+![Alt Text](https://github.com/boraseoksoon/SpotlightSearch/tree/master/gif/dark_theme.gif)
+![Alt Text](https://github.com/boraseoksoon/SpotlightSearch/tree/master/gif/white_theme.gif)
 ![Alt Text](https://media.giphy.com/media/RfeIpyRRdJDCce9jfN/giphy.gif)
+
 
 <!-- short link: https://gph.is/g/amnjBwJ -->
 <!-- html5 video link :https://giphy.com/gifs/ZXB9LVcRqNi7W5dZel/html5 -->
@@ -31,11 +33,12 @@ At a Glance
 ```swift
 // MARK: - Body
  var body: some View {
-     SpotlightSearch(searchKeywords:viewModel.searchableItems,
-               isSearching:$isSearching,
-               didChangeSearchText: { self.viewModel.searchText = $0 },
-               didTapSearchItem: { self.viewModel.searchText = $0 }) {
-                 Text("Your view goes here")
+     SpotlightSearch(
+        searchKeywords:viewModel.searchableItems,
+        isSearching:$isSearching,
+        didChangeSearchText: { self.viewModel.searchText = $0 },
+        didTapSearchItem: { self.viewModel.searchText = $0 }) {
+            Text("Your view goes here")
      }
  }
 ```
@@ -44,8 +47,8 @@ At a Glance
 
 - [x] Written in SwiftUI and Combine 100%  
 - [x] It aims to provide quick and beautiful search UI/UX out of box like macOS Spotlight Search in iOS and beyond. 
-- [x] full geared toward MVVM.
-- [x] target to be easy and simple to use API.
+- [x] full geared toward SwiftUI, Combine and MVVM.
+- [x] easy and simple to use API.
 
 <br>
 
@@ -94,24 +97,25 @@ struct ContentView: View {
     var body: some View {
         /// Step2: 😆 Declare `Spotlight` externally.
         SpotlightSearch(searchKeywords:viewModel.searchableItems,
-                  isSearching:$isSearching,
-                  didChangeSearchText: { self.viewModel.searchText = $0 },
-                  didTapSearchItem: { self.viewModel.searchText = $0 }) {
-                    /// Step3: 😎 Let's wrap SwiftUI Views in it using trailing closure.
-                    Button(action: {
-                        withAnimation(.easeIn(duration: 0.3)) {
-                            self.isSearching.toggle()
-                        }
-                    }) {
-                        ZStack {
-                            Image(systemName: "magnifyingglass")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 80.0, height: 80.0)
-                                .foregroundColor(.blue)
-                        }
-
-                    }
+                        isSearching:$isSearching,
+                        configuration: conf,
+                        didChangeSearchText: { self.viewModel.searchText = $0 },
+                        didTapSearchItem: { self.viewModel.searchText = $0 }) {
+                            /// Step3: 😎 Let's wrap SwiftUI Views in it using trailing closure.
+                            Button(action: {
+                                withAnimation(.easeIn(duration: 0.3)) {
+                                    self.isSearching.toggle()
+                                }
+                            }) {
+                                ZStack {
+                                    Image(systemName: "magnifyingglass")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 80.0, height: 80.0)
+                                        .foregroundColor(.blue)
+                                }
+                                
+                            }
         }
     }
 }
