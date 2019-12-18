@@ -92,7 +92,6 @@ extension ItemListViewModel {
 // MARK: - Private methods
 extension ItemListViewModel {
     private func bind(model: ItemListModel) {
-        
         itemId
             .map { model.getPage(items: self.items, id: $0) }
             .filter { $0 != nil }
@@ -117,8 +116,6 @@ extension ItemListViewModel {
     }
     
     private func downloadImages(from items: [Photo]) -> Void {
-        // Combine Declarative Way
-        
         Publishers.Sequence<[Photo], IOError>(sequence: items)
             .sink(receiveCompletion: { _ in },
                   receiveValue: {
@@ -135,24 +132,5 @@ extension ItemListViewModel {
                     .store(in: &self.cancellables)
             })
             .store(in: &self.cancellables)
-        
-// Imperative Way
-        
-//        DispatchQueue.global().async {
-//            items.forEach { item in
-//                URL(string: item.imageURL ?? "")?
-//                    .loadImage(id: item.id)
-//                    .receive(on: DispatchQueue.main)
-//                    .sink(
-//                        receiveCompletion: { _ in },
-//                        receiveValue: { [weak self] image in
-//                            DispatchQueue.main.async {
-//                                self?.images.append(image)
-//                            }
-//                        }
-//                    )
-//                    .store(in: &self.cancellables)
-//            }
-//        }
-    }    
+    }
 }

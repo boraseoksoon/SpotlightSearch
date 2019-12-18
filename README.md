@@ -32,15 +32,14 @@ At a Glance
 
 ```swift
 // MARK: - Body
- var body: some View {
-     SpotlightSearch(
-        searchKeywords:viewModel.searchableItems,
+var body: some View {
+    SpotlightSearch(
         isSearching:$isSearching,
         didChangeSearchText: { self.viewModel.searchText = $0 },
         didTapSearchItem: { self.viewModel.searchText = $0 }) {
-            Text("Your view goes here")
-     }
- }
+            self.searchButton
+    }
+}
 ```
 
 ## Features
@@ -93,29 +92,47 @@ struct ContentView: View {
     @State private var isSearching = false
     @ObservedObject var viewModel = TestViewModel()
     
+    let conf = SpotlightConfiguration(placeHolder:.property(placeHolderFont: Font.system(size: 30,
+                                                                                         weight: .light,
+                                                                                         design: .rounded),
+                                                            placeholderText: "Search Anything"),
+                                      colors: .property(listItemTextColor: .blue,
+                                                        searchTextColor: .white,
+                                                        searchIconColor:.blue,
+                                                        deleteIconColor:.blue,
+                                                        dismissIconColor:.blue),
+                                      icons: .property(
+                                        searchIcon:Image(systemName: "magnifyingglass"),
+                                        deleteIcon: Image(systemName: "xmark.circle.fill"),
+                                        dismissIcon:Image(systemName: "x.circle")
+        )
+    )
+
     // MARK: - Body
     var body: some View {
-        /// Step2: 😆 Declare `Spotlight` externally.
-        SpotlightSearch(searchKeywords:viewModel.searchableItems,
-                        isSearching:$isSearching,
-                        configuration: conf,
-                        didChangeSearchText: { self.viewModel.searchText = $0 },
-                        didTapSearchItem: { self.viewModel.searchText = $0 }) {
-                            /// Step3: 😎 Let's wrap SwiftUI Views in it using trailing closure.
-                            Button(action: {
-                                withAnimation(.easeIn(duration: 0.3)) {
-                                    self.isSearching.toggle()
-                                }
-                            }) {
-                                ZStack {
-                                    Image(systemName: "magnifyingglass")
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(width: 80.0, height: 80.0)
-                                        .foregroundColor(.blue)
-                                }
-                                
-                            }
+        /// Step2: 😆 Declare `SpotlightSearch` externally.
+        SpotlightSearch(
+            isSearching:$isSearching,
+            didChangeSearchText: { self.viewModel.searchText = $0 },
+            didTapSearchItem: { self.viewModel.searchText = $0 }) {
+                /// Step3: 😎 your UI goes here.
+                self.searchButton
+        }
+    }
+    
+    var searchButton: some View {
+        Button(action: {
+            withAnimation(.easeIn(duration: 0.3)) {
+                self.isSearching.toggle()
+            }
+        }) {
+            ZStack {
+                Image(systemName: "magnifyingglass")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 80.0, height: 80.0)
+                    .foregroundColor(.blue)
+            }
         }
     }
 }
@@ -159,29 +176,86 @@ In SwiftExample directory, there are sample codes.
 
 
 ```Swift
+//
+//  ItemList.swift
+//  Spotlight
+//
+//  Created by boraseoksoon on 11/18/2019.
+//  Copyright (c) 2019 boraseoksoon. All rights reserved.
+//
+
 import SwiftUI
 
 /// Step1: 😙 import `Spotlight`
 import SpotlightSearch
 
-struct ContentView: View {
-    /// Assuming your viewmodel is like the example view model in the demo project, the way of how to use is as below.
-    /// You can clone this repo then there is SwiftUIExample target demo project in it.
-    @ObservedObject var viewModel: ItemListViewModel()
+struct ItemListView: View {
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
+
+    @ObservedObject var viewModel: ItemListViewModel
     @State private var isSearching = false
+    @State var showingDetail = false
+    
+    // MARK: - Initializers
+    init(viewModel: ItemListViewModel = ItemListViewModel()) {
+        /// This is example view-mdel implemented for demo purpose.
+        self.viewModel = viewModel
+    }
     
     // MARK: - Body
     var body: some View {
         /// Step2: 😆 Declare `Spotlight` externally.
-        SpotlightSearch(searchKeywords:viewModel.searchableItems,
-                  isSearching:$isSearching,
-                  didChangeSearchText: { self.viewModel.searchText = $0 },
-                  didTapSearchItem: { self.viewModel.searchText = $0 }) {
-                    /// Step3: 😎 Let's wrap SwiftUI Views in it using trailing closure.
-                    self.navigationView
+        SpotlightSearch(
+            /** searchKeywords is optional.
+                if searchKeywords parameter is ignored, google suggestion is used inside automatically.
+            */
+            searchKeywords:viewModel.searchableItems,
+            isSearching:$isSearching,
+            /**
+                if configuration parameter is ignored, default config is used
+             */
+            // configuration: conf,
+            didChangeSearchText: { self.viewModel.searchText = $0 },
+            didTapSearchItem: { self.viewModel.searchText = $0 }) {
+                /// Step3: 😎 Let's wrap SwiftUI Views in it using trailing closure.
+                self.navigationView
         }
     }
 }
+
+// MARK: - Views
+extension ItemListView {
+    var navigationView: some View {
+        NavigationView {
+            listView
+                .navigationBarTitle("Spotlight")
+                .navigationBarItems(trailing:
+                    Button(action: {
+                        //
+                        print("search click!")
+                        
+                        self.isSearching.toggle()
+                        
+                    }) {
+                        Image(systemName: "magnifyingglass")
+                    }
+                )
+        }
+        .alert(isPresented: $viewModel.showingAlert) {
+            Alert(title: Text(viewModel.errorMessage))
+        }
+    }
+
+    var listView: some View {
+        List(self.viewModel.searchedItems, id: \.id) { item in
+            NavigationLink(destination: DetailView(item: item)) {
+                ItemRow(item: item)
+            }
+        }
+        .navigationBarTitle(Text("Photos"))
+    }
+}
+
 ```
 
 ## One Caveat

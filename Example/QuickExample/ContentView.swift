@@ -33,27 +33,29 @@ struct ContentView: View {
 
     // MARK: - Body
     var body: some View {
-        /// Step2: 😆 Declare `Spotlight` externally.
-        SpotlightSearch(searchKeywords:viewModel.searchableItems,
-                        isSearching:$isSearching,
-                        configuration: conf,
-                        didChangeSearchText: { self.viewModel.searchText = $0 },
-                        didTapSearchItem: { self.viewModel.searchText = $0 }) {
-                            /// Step3: 😎 Let's wrap SwiftUI Views in it using trailing closure.
-                            Button(action: {
-                                withAnimation(.easeIn(duration: 0.3)) {
-                                    self.isSearching.toggle()
-                                }
-                            }) {
-                                ZStack {
-                                    Image(systemName: "magnifyingglass")
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(width: 80.0, height: 80.0)
-                                        .foregroundColor(.blue)
-                                }
-                                
-                            }
+        /// Step2: 😆 Declare `SpotlightSearch` externally.
+        SpotlightSearch(
+            isSearching:$isSearching,
+            didChangeSearchText: { self.viewModel.searchText = $0 },
+            didTapSearchItem: { self.viewModel.searchText = $0 }) {
+                /// Step3: 😎 your UI goes here.
+                self.searchButton
+        }
+    }
+    
+    var searchButton: some View {
+        Button(action: {
+            withAnimation(.easeIn(duration: 0.3)) {
+                self.isSearching.toggle()
+            }
+        }) {
+            ZStack {
+                Image(systemName: "magnifyingglass")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 80.0, height: 80.0)
+                    .foregroundColor(.blue)
+            }
         }
     }
 }

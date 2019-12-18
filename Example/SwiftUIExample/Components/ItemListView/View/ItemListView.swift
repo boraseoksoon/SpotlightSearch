@@ -27,12 +27,20 @@ struct ItemListView: View {
     // MARK: - Body
     var body: some View {
         /// Step2: 😆 Declare `Spotlight` externally.
-        SpotlightSearch(searchKeywords:viewModel.searchableItems,
-                  isSearching:$isSearching,
-                  didChangeSearchText: { self.viewModel.searchText = $0 },
-                  didTapSearchItem: { self.viewModel.searchText = $0 }) {
-                    /// Step3: 😎 Let's wrap SwiftUI Views in it using trailing closure.
-                    self.navigationView
+        SpotlightSearch(
+            /** searchKeywords is optional.
+                if searchKeywords parameter is ignored, google suggestion is used inside automatically.
+            */
+            searchKeywords:viewModel.searchableItems,
+            isSearching:$isSearching,
+            /**
+                if configuration parameter is ignored, default config is used
+             */
+            // configuration: conf,
+            didChangeSearchText: { self.viewModel.searchText = $0 },
+            didTapSearchItem: { self.viewModel.searchText = $0 }) {
+                /// Step3: 😎 Let's wrap SwiftUI Views in it using trailing closure.
+                self.navigationView
         }
     }
 }

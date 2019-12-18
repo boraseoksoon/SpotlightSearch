@@ -28,9 +28,12 @@ class SpotlightSearchVM: ObservableObject {
     // MARK: - Initializer
     init(searchKeywords: [String], didChangeSearchText: @escaping (String) -> Void) {
         self.didChangeSearchText = didChangeSearchText
+
+        self.model = SpotlightSearchModel(
+            searchKeywords: searchKeywords,
+            searchResultSubject:searchResultSubject
+        )
         
-        self.model = SpotlightSearchModel(searchKeywords: searchKeywords,
-                                    searchResultSubject:searchResultSubject)
         self.bind()
     }
 }
@@ -38,20 +41,27 @@ class SpotlightSearchVM: ObservableObject {
 // MARK: - Private Methods
 extension SpotlightSearchVM {
     private func bind() {
+        
         _ = $searchingText
                 .dropFirst(1)
                 .debounce(for: .seconds(0.0),
-                          scheduler: DispatchQueue.main)
-                .sink(receiveValue: {
-                    UserDefaults.standard.set($0, forKey: KEY_SEARCHING_TEXT)
+                          scheduler: DispatchQueue.global())
+                .sink(receiveValue: { searchText in
+                    UserDefaults.standard.set(searchText, forKey: KEY_SEARCHING_TEXT)
+                    self.model.searchItems(forKeyword:searchText)
                     
-                    self.didChangeSearchText($0)
-                    self.model.searchItems(forKeyword:$0)
+                    DispatchQueue.main.async {
+                        self.didChangeSearchText(searchText)
+                        
+                        if searchText == "" {
+                            UserDefaults.standard.set([], forKey: KEY_FOUNDS)
+                        }
+                    }
                 })
                 .store(in: &cancellables)
 
         searchResultSubject
-            .receive(on: DispatchQueue.main)
+            .receive(on: DispatchQueue.global())
             .sink(receiveCompletion: {
                 switch $0 {
                     case .failure(let error):

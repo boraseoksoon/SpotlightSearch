@@ -39,7 +39,7 @@ public struct SpotlightSearch<Content>: View where Content: View {
     var content: () -> Content
     
     // MARK: - Initializers
-    public init(searchKeywords: [String],
+    public init(searchKeywords: [String] = [],
          isSearching: Binding<Bool>,
          configuration: SpotlightConfiguration = SpotlightConfiguration(),
          didChangeSearchText: @escaping (String) -> Void,
@@ -110,6 +110,13 @@ extension SpotlightSearch {
         return AnyView(
             GeometryReader { geometry in
                 ZStack(alignment: .center) {
+                    Rectangle()
+                        .foregroundColor(self.colorScheme == .dark ? .black : .gray)
+                        .opacity(self.isSearching ? 0.5 : 0.0)
+                        .edgesIgnoringSafeArea([.all])
+                        .frame(width: UIScreen.main.bounds.size.width,
+                               height: UIScreen.main.bounds.size.height)
+                        
                     self.content()
                         .disabled(false)
                         .blur(radius: self.isSearching ? 15.0 : 0)
@@ -154,6 +161,7 @@ extension SpotlightSearch {
                         .frame(width: ICON_WIDTH + 10, height: ICON_WIDTH + 10)
                         .foregroundColor(self.searchIconColor)
                         .padding([.leading], LEADING_PADDING)
+                        .shadow(color: Color.black, radius: 0.1, x: 0.1, y: 0.1)
                     
                     Spacer()
                 }
@@ -166,10 +174,10 @@ extension SpotlightSearch {
                 }) {
                     Text(found)
                         .font(Font.system(size: 18, weight: .light, design: .rounded))
+                        .foregroundColor(self.listItemTextColor)
                         .shadow(color: Color.black, radius: 0.1, x: 0.1, y: 0.1)
                 }
             }
-            .colorMultiply(self.listItemTextColor)
         }
     }
     
@@ -189,9 +197,10 @@ extension SpotlightSearch {
                             self.dismissIcon
                                 .resizable()
                                 .scaledToFit()
-                                .frame(width: 30.0, height: 30.0)
+                                .frame(width: 33.0, height: 33.0)
                                 .foregroundColor(self.dismissIconColor)
-                                .padding([.top, .trailing], 25)
+                                .padding([.trailing], 25)
+                                .padding([.top], 50)
                         }
 
                     }
