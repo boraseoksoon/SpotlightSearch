@@ -18,11 +18,10 @@ struct ContentView: View {
     
     /// Step2: 😆 Declare `SpotlightSearch` externally.
     var body: some View {
-        SpotlightSearch(searchKeywords:viewModel.keywords,
-                        isSearching:$isSearching,
-                        didTapItem: {
-                            print("didTapItem : \($0)")
-                        }) {
+        SpotlightSearch(
+            searchKeywords:viewModel.keywords,
+            isSearching:$isSearching,
+            didTapItem: { print("chosen : \($0)") }) {
             /// Step3: 😎 your UI goes here.
             yourMainView
         }

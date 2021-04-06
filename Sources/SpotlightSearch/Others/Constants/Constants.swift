@@ -16,8 +16,4 @@ public let BOTTOM_PADDING: CGFloat = 25.0
 public let LEADING_PADDING: CGFloat = 25.0
 public let ANIMATION_DURATION: Double = 0.5
 
-// MARK: - UserDefault Key Constants
-public let KEY_FOUNDS = "founds"
-public let KEY_SEARCHING_TEXT = "SEARCHING_TEXT"
-
 #endif
