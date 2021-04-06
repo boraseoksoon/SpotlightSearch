@@ -54,12 +54,6 @@ var body: some View {
 }
 ```
 
-## Features
-
-- [x] Written in SwiftUI and Combine 100%  
-- [x] Search items on iOS in a similar way that macOS Spotlight does.
-- [x] One liner, no brainer API
-
 <br>
 
 ## Example
@@ -162,6 +156,11 @@ The output is as follows:
 
 ![Alt Text](https://media.giphy.com/media/RfeIpyRRdJDCce9jfN/giphy.gif)
 
+## Features
+
+- [x] Written in SwiftUI and Combine 100%  
+- [x] Search items on iOS in a similar way that macOS Spotlight does.
+- [x] One liner, no brainer API
 
 ## Installation
 
