@@ -1,6 +1,6 @@
 
 <p align="center">
-<img src="https://www.flaticon.com/svg/vstatic/svg/622/622669.svg?token=exp=1617739924~hmac=ffe4453967acec3822ad20920c65f163" alt="SpotlightSearch" title="SpotlightSearch" width="537"/>
+<img src="https://www.flaticon.com/svg/vstatic/svg/622/622669.svg?token=exp=1617739924~hmac=ffe4453967acec3822ad20920c65f163" alt="SpotlightSearch" title="SpotlightSearch" width="200"/>
 </p>
 <br>
 <br>
