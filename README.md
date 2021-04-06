@@ -1,3 +1,10 @@
+
+<p align="center">
+<img src="https://www.flaticon.com/svg/vstatic/svg/622/622669.svg?token=exp=1617739924~hmac=ffe4453967acec3822ad20920c65f163" alt="SpotlightSearch" title="SpotlightSearch" width="537"/>
+</p>
+<br>
+<br>
+
 # SpotlightSearch
 Spotlight Search UI written in SwiftUI and Combine.
 
@@ -6,7 +13,7 @@ Spotlight Search UI written in SwiftUI and Combine.
 [![License](https://img.shields.io/cocoapods/l/SpotlightSearch.svg?style=flat)](https://cocoapods.org/pods/SpotlightSearch)
 [![Platform](https://img.shields.io/cocoapods/p/SpotlightSearch.svg?style=flat)](https://cocoapods.org/pods/SpotlightSearch)
 
-SpotlightSearch aims to provide macOS spotlight search UI/UX and beyond.<br>
+a SwiftUI library that helps you search on iOS in a similar way MacOS Spotligt does.<br>
 
 Screenshots
 -----------
@@ -45,9 +52,8 @@ var body: some View {
 ## Features
 
 - [x] Written in SwiftUI and Combine 100%  
-- [x] It aims to provide quick and beautiful search UI/UX out of box like macOS Spotlight Search in iOS and beyond. 
-- [x] full geared toward SwiftUI, Combine and MVVM.
-- [x] easy and simple to use API.
+- [x] Search items on iOS in a similar way that macOS Spotlight does.
+- [x] One liner, no brainer API
 
 <br>
 
@@ -75,55 +81,36 @@ Getting Started
 In 'QuickExample' directory, there are sample codes.
 
 ```Swift
-//
-//  ContentView.swift
-//  QuickExample
-//
-//  Created by Seoksoon Jang on 2019/12/05.
-//  Copyright © 2019 Seoksoon Jang. All rights reserved.
-//
-
-import SwiftUI
 
 /// Step1: 😆 import `SpotlightSearch`!
 import SpotlightSearch
+import SwiftUI
 
 struct ContentView: View {
-    @State private var isSearching = false
     @ObservedObject var viewModel = TestViewModel()
+    @State private var isSearching = false
     
-    let conf = SpotlightConfiguration(placeHolder:.property(placeHolderFont: Font.system(size: 30,
-                                                                                         weight: .light,
-                                                                                         design: .rounded),
-                                                            placeholderText: "Search Anything"),
-                                      colors: .property(listItemTextColor: .blue,
-                                                        searchTextColor: .white,
-                                                        searchIconColor:.blue,
-                                                        deleteIconColor:.blue,
-                                                        dismissIconColor:.blue),
-                                      icons: .property(
-                                        searchIcon:Image(systemName: "magnifyingglass"),
-                                        deleteIcon: Image(systemName: "xmark.circle.fill"),
-                                        dismissIcon:Image(systemName: "x.circle")
-        )
-    )
-
     // MARK: - Body
+    
+    /// Step2: 😆 Declare `SpotlightSearch` externally.
     var body: some View {
-        /// Step2: 😆 Declare `SpotlightSearch` externally.
         SpotlightSearch(
+            searchKeywords:viewModel.keywords,
             isSearching:$isSearching,
-            didChangeSearchText: { self.viewModel.searchText = $0 },
-            didTapSearchItem: { self.viewModel.searchText = $0 }) {
-                /// Step3: 😎 your UI goes here.
-                self.searchButton
+            didTapItem: { print("chosen : \($0)") }) {
+
+                /// Step3: 😎 your UI goes here in the closure. All Set!
+                yourMainView
         }
     }
-    
-    var searchButton: some View {
+}
+
+// MARK: - Variables
+extension ContentView {
+    var yourMainView: some View {
         Button(action: {
             withAnimation(.easeIn(duration: 0.3)) {
-                self.isSearching.toggle()
+                isSearching.toggle()
             }
         }) {
             ZStack {
@@ -139,168 +126,32 @@ struct ContentView: View {
 
 class TestViewModel: ObservableObject {
     @Published var searchText: String = ""
-    @Published var searchableItems: [String] = ["Objective-C",
-                                                "Clojure",
-                                                "Swift",
-                                                "Javascript",
-                                                "Python",
-                                                "Haskell",
-                                                "Scala",
-                                                "Rust",
-                                                "C",
-                                                "C++",
-                                                "Dart",
-                                                "C#",
-                                                "F#",
-                                                "LISP",
-                                                "Golang",
-                                                "Kotlin",
-                                                "Java",
-                                                "Assembly",
-                                                "안녕하세요",
-                                                "감사합니다",
-                                                "사랑합니다",
-                                                "행복하세요"]
+    @Published var keywords: [String] = ["Objective-C",
+                                         "Clojure",
+                                         "Swift",
+                                         "Javascript",
+                                         "Python",
+                                         "Haskell",
+                                         "Scala",
+                                         "Rust",
+                                         "C",
+                                         "C++",
+                                         "Dart",
+                                         "C#",
+                                         "F#",
+                                         "LISP",
+                                         "Golang",
+                                         "Kotlin",
+                                         "Java",
+                                         "Assembly",
+                                         "안녕하세요",
+                                         "감사합니다",
+                                         "사랑합니다",
+                                         "행복하세요"]
 }
+
 
 ```
-
-* SwiftUI MVVM example code with basic networking operation using Combine. 
-You need to set your own logic.
-
-1. clone repository 
-2. Switch and Select 'SwiftUIExample' target
-3. build and run.
-
-In SwiftExample directory, there are sample codes. 
-
-
-```Swift
-//
-//  ItemList.swift
-//  Spotlight
-//
-//  Created by boraseoksoon on 11/18/2019.
-//  Copyright (c) 2019 boraseoksoon. All rights reserved.
-//
-
-import SwiftUI
-
-/// Step1: 😙 import `Spotlight`
-import SpotlightSearch
-
-struct ItemListView: View {
-    @Environment(\.colorScheme) var colorScheme: ColorScheme
-
-    @ObservedObject var viewModel: ItemListViewModel
-    @State private var isSearching = false
-    @State var showingDetail = false
-    
-    // MARK: - Initializers
-    init(viewModel: ItemListViewModel = ItemListViewModel()) {
-        /// This is example view-mdel implemented for demo purpose.
-        self.viewModel = viewModel
-    }
-    
-    // MARK: - Body
-    var body: some View {
-        /// Step2: 😆 Declare `Spotlight` externally.
-        SpotlightSearch(
-            /** searchKeywords is optional.
-                if searchKeywords parameter is ignored, google suggestion is used inside automatically.
-            */
-            searchKeywords:viewModel.searchableItems,
-            isSearching:$isSearching,
-            /**
-                if configuration parameter is ignored, default config is used
-             */
-            // configuration: conf,
-            didChangeSearchText: { self.viewModel.searchText = $0 },
-            didTapSearchItem: { self.viewModel.searchText = $0 }) {
-                /// Step3: 😎 Let's wrap SwiftUI Views in it using trailing closure.
-                self.navigationView
-        }
-    }
-}
-
-// MARK: - Views
-extension ItemListView {
-    var navigationView: some View {
-        NavigationView {
-            listView
-                .navigationBarTitle("Spotlight")
-                .navigationBarItems(trailing:
-                    Button(action: {
-                        //
-                        print("search click!")
-                        
-                        self.isSearching.toggle()
-                        
-                    }) {
-                        Image(systemName: "magnifyingglass")
-                    }
-                )
-        }
-        .alert(isPresented: $viewModel.showingAlert) {
-            Alert(title: Text(viewModel.errorMessage))
-        }
-    }
-
-    var listView: some View {
-        List(self.viewModel.searchedItems, id: \.id) { item in
-            NavigationLink(destination: DetailView(item: item)) {
-                ItemRow(item: item)
-            }
-        }
-        .navigationBarTitle(Text("Photos"))
-    }
-}
-
-```
-
-## One Caveat
-Currently, SpotlightSearch uses *GLOBAL API to change UITableViewCell and UITableView property GLOBALLY* like below
-since SwiftUI is in the very early stage of development and there are plenty of lack APIs  out there and 
-not possible to implement such UI Change while using SwiftUI 100%.
-
-Take special care when applying SpotlightSearch into your app which might cause unexpected UI/UX change in your app. 
-I will keep my eyes on the SwiftUI API change and when possible, I will fix this workaround as soon as released. 
-
-Note that SpotlightSearch uses these implementation in the initializer as below at the latest version.
-
-```Swift
-// MARK: - Initializers
-public init(searchKeywords: [String],
-     isSearching: Binding<Bool>,
-     didChangeSearchText: @escaping (String) -> Void,
-     didTapSearchItem: @escaping (String) -> Void,
-     wrappingClosure: @escaping () -> Content) {
-    
-    /// FIXME: THOSE GLOBAL THINGS MAY BE APPLIED TO ALL APP ALTHOUGH MODULE IS SEPARATED.
-    /// BUT, THERE IS NO SUCH THING AS API BY WHICH I CAN MODIFY SWIFTUI.
-    UITableView.appearance().allowsSelection = false
-    UITableView.appearance().separatorStyle = .none
-    UITableView.appearance().backgroundColor = .clear
-    UITableView.appearance().tableFooterView = UIView()
-    UITableView.appearance().contentInset = UIEdgeInsets(top:0,
-                                                         left: 0,
-                                                         bottom: 300,
-                                                         right: 0)
-    
-    UITableViewCell.appearance().selectionStyle = .none
-    UITableViewCell.appearance().backgroundColor = .clear
-    
-    self.content = wrappingClosure
-    self._isSearching = isSearching
-    
-    self.didTapSearchItem = didTapSearchItem
-    self.didChangeSearchText = didChangeSearchText
-    
-    self.spotlightSearchVM = SpotlightSearchVM(searchKeywords: searchKeywords,
-                                               didChangeSearchText: didChangeSearchText)
-}
-```
-
 
 ## Installation
 
