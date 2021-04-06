@@ -48,7 +48,7 @@ var body: some View {
             searchKeywords:viewModel.keywords,
             isSearching:$isSearching,
             didTapItem: { print("chosen : \($0)") }) {
-                Text("Tell me I am your view")
+                Text("Your main view goes here")
         }
     }
 }
