@@ -158,6 +158,11 @@ class TestViewModel: ObservableObject {
 
 ```
 
+The output is as follows:
+
+![Alt Text](https://media.giphy.com/media/RfeIpyRRdJDCce9jfN/giphy.gif)
+
+
 ## Installation
 
 There are two ways officially to use SpotlightSearch in your project:
