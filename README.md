@@ -38,14 +38,18 @@ Youtube video URL Link for how it works in normal mode: <br>
 At a Glance
 -----------
 
+Drop it. 
+
 ```swift
 // MARK: - Body
 var body: some View {
-    SpotlightSearch(
-        isSearching:$isSearching,
-        didChangeSearchText: { self.viewModel.searchText = $0 },
-        didTapSearchItem: { self.viewModel.searchText = $0 }) {
-            self.searchButton
+    var body: some View {
+        SpotlightSearch(
+            searchKeywords:viewModel.keywords,
+            isSearching:$isSearching,
+            didTapItem: { print("chosen : \($0)") }) {
+                yourMainView
+        }
     }
 }
 ```
