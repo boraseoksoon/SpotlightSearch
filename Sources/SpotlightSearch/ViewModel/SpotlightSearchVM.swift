@@ -24,12 +24,16 @@ class SpotlightSearchVM: ObservableObject {
     private let searchResultSubject = PassthroughSubject<[SearchResult], SpotlightError>()
     private var cancellables = Set<AnyCancellable>()
     
+    var didSearchKeyword: (String) -> Void
+    
     // MARK: - Initializer
-    init(searchKeywords: [String]) {
+    init(searchKeywords: [String], didSearchKeyword: @escaping (String) -> Void) {
         self.model = SpotlightSearchModel(
             searchKeywords: searchKeywords,
             searchResultSubject:searchResultSubject
         )
+        
+        self.didSearchKeyword = didSearchKeyword
         
         self.bind()
     }
@@ -45,6 +49,7 @@ extension SpotlightSearchVM {
                       scheduler: DispatchQueue.global())
             .sink(receiveValue: { searchText in
                 self.model.searchItems(forKeyword:searchText)
+                self.didSearchKeyword(searchText)
             })
             .store(in: &cancellables)
 

@@ -16,6 +16,7 @@ public struct SpotlightSearch<Content>: View where Content: View {
     @ObservedObject var viewModel: SpotlightSearchVM
     @Binding var isSearching: Bool
 
+    var didSearchKeyword: (String) -> Void
     var didTapItem: (String) -> Void
     // MARK: - Instance Variables
     var configuration = SpotlightConfiguration()
@@ -27,6 +28,7 @@ public struct SpotlightSearch<Content>: View where Content: View {
     public init(searchKeywords: [String],
          isSearching: Binding<Bool>,
          configuration: SpotlightConfiguration = SpotlightConfiguration(),
+         didSearchKeyword: @escaping (String) -> Void,
          didTapItem: @escaping (String) -> Void,
          wrapContentView: @escaping () -> Content) {
         self.content = wrapContentView
@@ -35,6 +37,7 @@ public struct SpotlightSearch<Content>: View where Content: View {
         
         self.configuration = configuration
         self.didTapItem = didTapItem
+        self.didSearchKeyword = didSearchKeyword
         
         switch self.configuration.colors {
             case .property(listItemTextColor: let listItemTextColor,
@@ -66,7 +69,8 @@ public struct SpotlightSearch<Content>: View where Content: View {
                 self.dismissIcon = dismissIcon
         }
 
-        self.viewModel = SpotlightSearchVM(searchKeywords: searchKeywords)
+        self.viewModel = SpotlightSearchVM(searchKeywords: searchKeywords,
+                                           didSearchKeyword: didSearchKeyword)
     }
 
     private let listItemTextColor: Color

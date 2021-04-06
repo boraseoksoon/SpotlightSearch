@@ -21,9 +21,13 @@ struct ContentView: View {
         SpotlightSearch(
             searchKeywords:viewModel.keywords,
             isSearching:$isSearching,
-            didTapItem: { print("chosen : \($0)") }) {
+            didSearchKeyword: { print("didSearchKeyword : \($0)") },
+            didTapItem: { print("didTapItem : \($0)") }) {
             /// Step3: 😎 your UI goes here.
-            yourMainView
+            
+            NavigationView {
+                yourMainView
+            }
         }
     }
 }
