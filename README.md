@@ -54,6 +54,25 @@ var body: some View {
 }
 ```
 
+If you use NavigationView, 
+
+```swift
+// MARK: - Body
+var body: some View {
+    var body: some View {
+        // NavigationView needs to be declared externally
+        NavigationView {
+            SpotlightSearch(
+                searchKeywords:testViewModel.keywords,
+                isSearching:$isSearching,
+                didTapItem: { print("chosen : \($0)") }) {
+                    Text("Your main view goes here")
+            }
+        }
+    }
+}
+```
+
 <br>
 
 ## Example
