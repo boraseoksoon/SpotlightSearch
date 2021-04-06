@@ -13,59 +13,29 @@ import SwiftUI
 public struct SpotlightSearch<Content>: View where Content: View {
     // MARK: - SwiftUI Instance Variables
     @Environment(\.colorScheme) var colorScheme: ColorScheme
-    @ObservedObject var spotlightSearchVM: SpotlightSearchVM
+    @ObservedObject var viewModel: SpotlightSearchVM
     @Binding var isSearching: Bool
 
+    var didTapItem: (String) -> Void
     // MARK: - Instance Variables
     var configuration = SpotlightConfiguration()
     
-    private let listItemTextColor: Color
-    private let searchTextColor: Color
-    
-    private let placeHolderFont: Font
-    private let placeholderText: String
-    
-    private let searchIconColor: Color
-    private let deleteIconColor: Color
-    private let dismissIconColor: Color
-    
-    private let searchIcon: Image
-    private let deleteIcon: Image
-    private let dismissIcon: Image
-    
     // MARK: - Closures
-    var didChangeSearchText: (String) -> Void
-    var didTapSearchItem: (String) -> Void
     var content: () -> Content
     
     // MARK: - Initializers
-    public init(searchKeywords: [String] = [],
+    public init(searchKeywords: [String],
          isSearching: Binding<Bool>,
          configuration: SpotlightConfiguration = SpotlightConfiguration(),
-         didChangeSearchText: @escaping (String) -> Void,
-         didTapSearchItem: @escaping (String) -> Void,
-         wrappingClosure: @escaping () -> Content) {
-        /// FIXME: THOSE GLOBAL THINGS MAY BE APPLIED TO ALL APP ALTHOUGH MODULE IS SEPARATED.
-        /// BUT, THERE IS NO SUCH THING AS API BY WHICH I CAN MODIFY SWIFTUI.
-        UITableView.appearance().allowsSelection = false
-        UITableView.appearance().separatorStyle = .none
-        UITableView.appearance().backgroundColor = .clear
-        UITableView.appearance().tableFooterView = UIView()
-        UITableView.appearance().contentInset = UIEdgeInsets(top:0,
-                                                             left: 0,
-                                                             bottom: 300,
-                                                             right: 0)
-        
-        UITableViewCell.appearance().selectionStyle = .none
-        UITableViewCell.appearance().backgroundColor = .clear
-                
-        self.content = wrappingClosure
+         didTapItem: @escaping (String) -> Void,
+         wrapContentView: @escaping () -> Content) {
+        self.content = wrapContentView
         
         self._isSearching = isSearching
         
         self.configuration = configuration
+        self.didTapItem = didTapItem
         
-
         switch self.configuration.colors {
             case .property(listItemTextColor: let listItemTextColor,
                            searchTextColor: let searchTextColor,
@@ -96,12 +66,22 @@ public struct SpotlightSearch<Content>: View where Content: View {
                 self.dismissIcon = dismissIcon
         }
 
-        self.didTapSearchItem = didTapSearchItem
-        self.didChangeSearchText = didChangeSearchText
-        
-        self.spotlightSearchVM = SpotlightSearchVM(searchKeywords: searchKeywords,
-                                                   didChangeSearchText: didChangeSearchText)
+        self.viewModel = SpotlightSearchVM(searchKeywords: searchKeywords)
     }
+
+    private let listItemTextColor: Color
+    private let searchTextColor: Color
+    
+    private let placeHolderFont: Font
+    private let placeholderText: String
+    
+    private let searchIconColor: Color
+    private let deleteIconColor: Color
+    private let dismissIconColor: Color
+    
+    private let searchIcon: Image
+    private let deleteIcon: Image
+    private let dismissIcon: Image
 }
 
 // MARK: - Body
@@ -111,21 +91,22 @@ extension SpotlightSearch {
             GeometryReader { geometry in
                 ZStack(alignment: .center) {
                     Rectangle()
-                        .foregroundColor(self.colorScheme == .dark ? .black : .gray)
-                        .opacity(self.isSearching ? 0.5 : 0.0)
+                        .foregroundColor(colorScheme == .dark ? .black : .gray)
+                        .opacity(isSearching ? 0.5 : 0.0)
                         .edgesIgnoringSafeArea([.all])
                         .frame(width: UIScreen.main.bounds.size.width,
                                height: UIScreen.main.bounds.size.height)
                         
-                    self.content()
+                    content()
                         .disabled(false)
-                        .blur(radius: self.isSearching ? 15.0 : 0)
-
-                    if self.isSearching {
-                        self.searchBar
+                        .blur(radius: isSearching ? 15.0 : 0)
+                    
+                    if isSearching {
+                        searchBar
                     }
                 }
             }
+            
         )
     }
 }
@@ -134,53 +115,66 @@ extension SpotlightSearch {
 extension SpotlightSearch {
     var searchBar: some View {
         VStack {
-            self.dismissView
+            dismissView
 
             ZStack {
-                TextField(self.placeholderText,
-                          text: self.$spotlightSearchVM.searchingText,
+                TextField(placeholderText,
+                          text: $viewModel.searchingText,
                           onCommit: {
                             withAnimation(.easeIn(duration: 1.0)) {
-                                self.isSearching = false
+                                isSearching = false
                             }
                     })
                     .textFieldStyle(DefaultTextFieldStyle())
-                    .foregroundColor(self.searchTextColor)
-                    .font(self.placeHolderFont)
+                    .foregroundColor(searchTextColor)
+                    .font(placeHolderFont)
                     .keyboardType(.default)
-                    .modifier(ClearAllTextModifier(text: self.$spotlightSearchVM.searchingText,
-                                                   deleteIcon: self.deleteIcon,
-                                                   deleteIconColor: self.deleteIconColor))
+                    .modifier(ClearAllTextModifier(text: $viewModel.searchingText,
+                                                   deleteIcon: deleteIcon,
+                                                   deleteIconColor: deleteIconColor))
                     .padding([.leading], LEADING_PADDING + ICON_WIDTH + 30)
                     .shadow(color: Color.black, radius: 0.1, x: 0.1, y: 0.1)
                 
                 HStack {
-                    self.searchIcon
+                    searchIcon
                         .resizable()
                         .scaledToFit()
                         .frame(width: ICON_WIDTH + 10, height: ICON_WIDTH + 10)
-                        .foregroundColor(self.searchIconColor)
+                        .foregroundColor(searchIconColor)
                         .padding([.leading], LEADING_PADDING)
                         .shadow(color: Color.black, radius: 0.1, x: 0.1, y: 0.1)
                     
                     Spacer()
                 }
             }
-                        
-            List(self.spotlightSearchVM.founds, id: \.self) { found in
-                Button(action: {
-                    self.didTapSearchItem(found)
-                    self.spotlightSearchVM.searchingText = found
-                }) {
-                    Text(found)
-                        .font(Font.system(size: 18, weight: .light, design: .rounded))
-                        .foregroundColor(self.listItemTextColor)
-                        .shadow(color: Color.black, radius: 0.1, x: 0.1, y: 0.1)
+                 
+            GeometryReader { geometry in
+                ScrollView {
+                    ForEach(viewModel.founds, id: \.self) { found in
+                        Button(action: {
+                            viewModel.searchingText = found
+                            didTapItem(found)
+                        }) {
+                            HStack {
+                                Text(found)
+                                    .font(Font.system(size: 18, weight: .light, design: .rounded))
+                                    .foregroundColor(listItemTextColor)
+                                    .shadow(color: Color.black, radius: 0.1, x: 0.1, y: 0.1)
+                                    .padding([.leading], LEADING_PADDING)
+                                    .padding([.top, .bottom, .trailing])
+                                    
+                                Spacer()
+                            }
+                            .frame(width: geometry.size.width)
+                        }
+                    }.background(Color.clear)
                 }
             }
+
         }
+        
     }
-    
+
     var dismissView: some View {
         return (
             VStack {
@@ -197,7 +191,7 @@ extension SpotlightSearch {
                             self.dismissIcon
                                 .resizable()
                                 .scaledToFit()
-                                .frame(width: 33.0, height: 33.0)
+                                .frame(width: 25.0, height: 25.0)
                                 .foregroundColor(self.dismissIconColor)
                                 .padding([.trailing], 25)
                                 .padding([.top], 50)
@@ -229,8 +223,8 @@ public struct SpotlightConfiguration {
                                            dismissIconColor:.blue),
         
         icons: SpotlightIcon = .property(searchIcon: Image(systemName: "magnifyingglass"),
-                                         deleteIcon: Image(systemName: "xmark.circle.fill"),
-                                         dismissIcon: Image(systemName: "x.circle"))) {
+                                         deleteIcon: Image(systemName: "xmark.square.fill"),
+                                         dismissIcon: Image(systemName: "xmark"))) {
         self.placeHolder = placeHolder
         self.colors = colors
         self.icons = icons

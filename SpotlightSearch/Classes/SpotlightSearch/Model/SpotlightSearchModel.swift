@@ -12,13 +12,12 @@ import Foundation
 import Combine
 
 struct SpotlightSearchModel {
-    public var searchKeywords: [String] = []
+    public var searchKeywords: [String]
     public var searchResultSubject = PassthroughSubject<[SearchResult], SpotlightError>()
 }
 
 // MARK: - Private Methods
 extension SpotlightSearchModel {
-    // TODO:
     public func searchItems(forKeyword searchingText: String) -> Void {
         guard let url = URL(string:"http://google.com/complete/search?output=toolbar&q=\(searchingText.replacingOccurrences(of: " ", with: ""))")
             else {

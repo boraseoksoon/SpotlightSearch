@@ -6,47 +6,35 @@
 //  Copyright © 2019 Seoksoon Jang. All rights reserved.
 //
 
-import SwiftUI
-
 /// Step1: 😆 import `SpotlightSearch`!
 import SpotlightSearch
+import SwiftUI
 
 struct ContentView: View {
-    @State private var isSearching = false
     @ObservedObject var viewModel = TestViewModel()
+    @State private var isSearching = false
     
-    let conf = SpotlightConfiguration(placeHolder:.property(placeHolderFont: Font.system(size: 30,
-                                                                                         weight: .light,
-                                                                                         design: .rounded),
-                                                            placeholderText: "Search Anything"),
-                                      colors: .property(listItemTextColor: .blue,
-                                                        searchTextColor: .white,
-                                                        searchIconColor:.blue,
-                                                        deleteIconColor:.blue,
-                                                        dismissIconColor:.blue),
-                                      icons: .property(
-                                        searchIcon:Image(systemName: "magnifyingglass"),
-                                        deleteIcon: Image(systemName: "xmark.circle.fill"),
-                                        dismissIcon:Image(systemName: "x.circle")
-        )
-    )
-
     // MARK: - Body
+    
+    /// Step2: 😆 Declare `SpotlightSearch` externally.
     var body: some View {
-        /// Step2: 😆 Declare `SpotlightSearch` externally.
-        SpotlightSearch(
-            isSearching:$isSearching,
-            didChangeSearchText: { self.viewModel.searchText = $0 },
-            didTapSearchItem: { self.viewModel.searchText = $0 }) {
-                /// Step3: 😎 your UI goes here.
-                self.searchButton
+        SpotlightSearch(searchKeywords:viewModel.keywords,
+                        isSearching:$isSearching,
+                        didTapItem: {
+                            print("didTapItem : \($0)")
+                        }) {
+            /// Step3: 😎 your UI goes here.
+            yourMainView
         }
     }
-    
-    var searchButton: some View {
+}
+
+// MARK: - Variables
+extension ContentView {
+    var yourMainView: some View {
         Button(action: {
             withAnimation(.easeIn(duration: 0.3)) {
-                self.isSearching.toggle()
+                isSearching.toggle()
             }
         }) {
             ZStack {
@@ -62,26 +50,26 @@ struct ContentView: View {
 
 class TestViewModel: ObservableObject {
     @Published var searchText: String = ""
-    @Published var searchableItems: [String] = ["Objective-C",
-                                                "Clojure",
-                                                "Swift",
-                                                "Javascript",
-                                                "Python",
-                                                "Haskell",
-                                                "Scala",
-                                                "Rust",
-                                                "C",
-                                                "C++",
-                                                "Dart",
-                                                "C#",
-                                                "F#",
-                                                "LISP",
-                                                "Golang",
-                                                "Kotlin",
-                                                "Java",
-                                                "Assembly",
-                                                "안녕하세요",
-                                                "감사합니다",
-                                                "사랑합니다",
-                                                "행복하세요"]
+    @Published var keywords: [String] = ["Objective-C",
+                                         "Clojure",
+                                         "Swift",
+                                         "Javascript",
+                                         "Python",
+                                         "Haskell",
+                                         "Scala",
+                                         "Rust",
+                                         "C",
+                                         "C++",
+                                         "Dart",
+                                         "C#",
+                                         "F#",
+                                         "LISP",
+                                         "Golang",
+                                         "Kotlin",
+                                         "Java",
+                                         "Assembly",
+                                         "안녕하세요",
+                                         "감사합니다",
+                                         "사랑합니다",
+                                         "행복하세요"]
 }
