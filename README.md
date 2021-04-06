@@ -1,7 +1,8 @@
 
 <p align="center">
-<img src="https://www.flaticon.com/svg/vstatic/svg/622/622669.svg?token=exp=1617739924~hmac=ffe4453967acec3822ad20920c65f163" alt="SpotlightSearch" title="SpotlightSearch" width="200"/>
+<img src="https://www.apple.com/v/app-store/a/images/overview/icon_search__d0w979yulru6_large_2x.png" alt="SpotlightSearch" title="SpotlightSearch" width="250"/>
 </p>
+<sub>Icon credits: Apple(https://www.apple.com/ca/app-store/)</sub>
 <br>
 <br>
 
