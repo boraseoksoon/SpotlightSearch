@@ -47,7 +47,8 @@ var body: some View {
         SpotlightSearch(
             searchKeywords:viewModel.keywords,
             isSearching:$isSearching,
-            didTapItem: { print("chosen : \($0)") }) {
+            didSearchKeyword: { print("didSearchKeyword : \($0)") },
+            didTapItem: { print("didTapItem : \($0)") }) {
                 Text("Your main view goes here")
         }
     }
@@ -65,7 +66,8 @@ var body: some View {
             SpotlightSearch(
                 searchKeywords:testViewModel.keywords,
                 isSearching:$isSearching,
-                didTapItem: { print("chosen : \($0)") }) {
+                didSearchKeyword: { print("didSearchKeyword : \($0)") },
+                didTapItem: { print("didTapItem : \($0)") }) {
                     Text("Your main view goes here")
             }
         }
@@ -115,7 +117,8 @@ struct ContentView: View {
         SpotlightSearch(
             searchKeywords:viewModel.keywords,
             isSearching:$isSearching,
-            didTapItem: { print("chosen : \($0)") }) {
+            didSearchKeyword: { print("didSearchKeyword : \($0)") },
+            didTapItem: { print("didTapItem : \($0)") }) {
 
                 /// Step3: 😎 your UI goes here in the closure. All Set!
                 yourMainView
