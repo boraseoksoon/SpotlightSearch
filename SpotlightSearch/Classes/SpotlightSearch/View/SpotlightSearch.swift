@@ -11,26 +11,26 @@
 import SwiftUI
 
 public struct SpotlightSearch<Content>: View where Content: View {
-    // MARK: - SwiftUI Instance Variables
     @Environment(\.colorScheme) var colorScheme: ColorScheme
-    @ObservedObject var viewModel: SpotlightSearchVM
     @Binding var isSearching: Bool
-
+    @ObservedObject var viewModel: SpotlightSearchViewModel
+    
     var didSearchKeyword: (String) -> Void
     var didTapItem: (String) -> Void
-    // MARK: - Instance Variables
+    
     var configuration = SpotlightConfiguration()
     
-    // MARK: - Closures
     var content: () -> Content
-    
+
     // MARK: - Initializers
-    public init(searchKeywords: [String],
-         isSearching: Binding<Bool>,
-         configuration: SpotlightConfiguration = SpotlightConfiguration(),
-         didSearchKeyword: @escaping (String) -> Void,
-         didTapItem: @escaping (String) -> Void,
-         wrapContentView: @escaping () -> Content) {
+    public init(
+        viewModel: SpotlightSearchViewModel,
+        isSearching: Binding<Bool>,
+        configuration: SpotlightConfiguration = SpotlightConfiguration(),
+        didSearchKeyword: @escaping (String) -> Void,
+        didTapItem: @escaping (String) -> Void,
+        wrapContentView: @escaping () -> Content) {
+        
         self.content = wrapContentView
         
         self._isSearching = isSearching
@@ -69,8 +69,8 @@ public struct SpotlightSearch<Content>: View where Content: View {
                 self.dismissIcon = dismissIcon
         }
 
-        self.viewModel = SpotlightSearchVM(searchKeywords: searchKeywords,
-                                           didSearchKeyword: didSearchKeyword)
+        self.viewModel = viewModel
+        self.viewModel.didSearchKeyword = didSearchKeyword
     }
 
     private let listItemTextColor: Color

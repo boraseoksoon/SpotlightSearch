@@ -12,7 +12,6 @@
 		2256FBAF72FC0ADC058D5703C93401CC /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093F18638D61DD1DBC467BD199D14BB9 /* Constants.swift */; };
 		2C3A0553569A81D4E0F5947F4720CB5C /* SpotlightSearchVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A385B448F54C10A55A33169495C19B /* SpotlightSearchVM.swift */; };
 		2FCC8AAF32E4EF9BE99176EA8E11D1D4 /* Pods-SwiftUIExample-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DB8BA8AB3ECC26674AB4773491B443C /* Pods-SwiftUIExample-dummy.m */; };
-		470ED69223AAA7310099DF00 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470ED69123AAA7310099DF00 /* Functions.swift */; };
 		565036D2CB6E4D40C9430178E0B2C99E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 312B988EF117AE4DE76A268D970131FE /* UIKit.framework */; };
 		5AE6B7B18F77BD5D86518562570F7181 /* ClearAllTextModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091FC355633E2AFC3C2A34725C13F1DB /* ClearAllTextModifier.swift */; };
 		69B4DAC4EFBB4DFD2A2AD81E71D9D34E /* SpotlightSearch-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E4410BF3E792C9001DC1A85726DD221B /* SpotlightSearch-dummy.m */; };
@@ -57,7 +56,6 @@
 		3DB8BA8AB3ECC26674AB4773491B443C /* Pods-SwiftUIExample-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-SwiftUIExample-dummy.m"; sourceTree = "<group>"; };
 		3E78E0F08D564A88E5583C9B9565FC47 /* Pods-SwiftUIExample-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SwiftUIExample-Info.plist"; sourceTree = "<group>"; };
 		436BAA54A31999B53B3CC7115C55FE50 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		470ED69123AAA7310099DF00 /* Functions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Functions.swift; path = ../Others/Functions/Functions.swift; sourceTree = "<group>"; };
 		4C1899DA3FD4F5F2F53DE3F17BA08D68 /* SpotlightSearch.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SpotlightSearch.swift; sourceTree = "<group>"; };
 		50F90E4115C38442DA7351A57E27BEBE /* Pods-SwiftUIExample-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-SwiftUIExample-acknowledgements.markdown"; sourceTree = "<group>"; };
 		546D683FA6045034522B8D61FD35A1A1 /* Pods-SwiftUIExample-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SwiftUIExample-acknowledgements.plist"; sourceTree = "<group>"; };
@@ -123,15 +121,6 @@
 			path = ViewModifier;
 			sourceTree = "<group>";
 		};
-		0F2ADAC8343928A4BCE61BE65571998B /* Functions */ = {
-			isa = PBXGroup;
-			children = (
-				470ED69123AAA7310099DF00 /* Functions.swift */,
-			);
-			name = Functions;
-			path = SpotlightSearch/Classes/SpotlightSearch/Functions;
-			sourceTree = "<group>";
-		};
 		1628BF05B4CAFDCC3549A101F5A10A17 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -185,7 +174,6 @@
 		7EDFAA4661E6216FE62A9DCF20520DBF /* SpotlightSearch */ = {
 			isa = PBXGroup;
 			children = (
-				0F2ADAC8343928A4BCE61BE65571998B /* Functions */,
 				8A000ED72172F3E1525AEA9FA42EB60D /* Model */,
 				AA546ED22A8F608FEA55DCD0503C530E /* Others */,
 				3DBAC0F6BCADF36B2B753832F985ABC4 /* Pod */,
@@ -410,7 +398,7 @@
 				LastUpgradeCheck = 1100;
 				TargetAttributes = {
 					BE0205154D58E9EA0B2DED25433B04CF = {
-						LastSwiftMigration = 1130;
+						LastSwiftMigration = 1240;
 					};
 				};
 			};
@@ -474,7 +462,6 @@
 				5AE6B7B18F77BD5D86518562570F7181 /* ClearAllTextModifier.swift in Sources */,
 				2256FBAF72FC0ADC058D5703C93401CC /* Constants.swift in Sources */,
 				C9EA9DAF9D2255AFBB53FF77C0ED33FC /* SpotlightError.swift in Sources */,
-				470ED69223AAA7310099DF00 /* Functions.swift in Sources */,
 				69B4DAC4EFBB4DFD2A2AD81E71D9D34E /* SpotlightSearch-dummy.m in Sources */,
 				958088080C6CBA601E2FC177AA6A3184 /* SpotlightSearch.swift in Sources */,
 				772F78C30B05196FBFA538B1690A8270 /* SpotlightSearchModel.swift in Sources */,

@@ -1,5 +1,5 @@
 //
-//  SpotlightSearchVM.swift
+//  SpotlightSearchViewModel.swift
 //  SwiftUIExample
 //
 //  Created by Seoksoon Jang on 2019/12/04.
@@ -12,26 +12,29 @@ import Combine
 
 typealias SearchResult = String
 
-class SpotlightSearchVM: ObservableObject {
+public class SpotlightSearchViewModel: ObservableObject {
     // MARK: - Publishes
     @Published var searchingText: String = ""
-    @Published var founds: [String] = []
-
+    public var founds: [String] {
+        model.founds
+    }
+    
+    public func update(dataSource: [String]) {
+        model.dataSource = dataSource
+    }
+    
     // MARK: - Model
-    private let model: SpotlightSearchModel
+    @Published private var model: SpotlightSearchModel
     
     // MARK: - Instance Variables
-    private let searchResultSubject = PassthroughSubject<[SearchResult], SpotlightError>()
     private var cancellables = Set<AnyCancellable>()
     
-    var didSearchKeyword: (String) -> Void
+    public var didSearchKeyword: ((String) -> Void)? = nil
     
     // MARK: - Initializer
-    init(searchKeywords: [String], didSearchKeyword: @escaping (String) -> Void) {
-        self.model = SpotlightSearchModel(
-            searchKeywords: searchKeywords,
-            searchResultSubject:searchResultSubject
-        )
+    public init(initialDataSource: [String],
+                didSearchKeyword: ((String) -> Void)? = nil) {
+        self.model = SpotlightSearchModel(dataSource: initialDataSource)
         
         self.didSearchKeyword = didSearchKeyword
         
@@ -40,7 +43,7 @@ class SpotlightSearchVM: ObservableObject {
 }
 
 // MARK: - Private Methods
-extension SpotlightSearchVM {
+extension SpotlightSearchViewModel {
     private func bind() {
         
         $searchingText
@@ -49,16 +52,7 @@ extension SpotlightSearchVM {
                       scheduler: DispatchQueue.global())
             .sink(receiveValue: { searchText in
                 self.model.searchItems(forKeyword:searchText)
-                self.didSearchKeyword(searchText)
-            })
-            .store(in: &cancellables)
-
-        searchResultSubject
-            .receive(on: DispatchQueue.main)
-            .sink(
-                receiveCompletion: { _ in },
-                receiveValue: {
-                    self.founds = $0
+                self.didSearchKeyword?(searchText)
             })
             .store(in: &cancellables)
     }

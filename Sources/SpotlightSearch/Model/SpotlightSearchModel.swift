@@ -11,21 +11,20 @@
 import Foundation
 import Combine
 
-struct SpotlightSearchModel {
-    public var searchKeywords: [String]
-    public var searchResultSubject = PassthroughSubject<[SearchResult], SpotlightError>()
+class SpotlightSearchModel {
+    public var dataSource: [String]
+    public var founds: [String] = []
+    
+    init(dataSource: [String]) {
+        self.dataSource = dataSource
+    }
 }
 
 // MARK: - Private Methods
 extension SpotlightSearchModel {
     public func searchItems(forKeyword searchingText: String) -> Void {
-        guard let url = URL(string:"http://google.com/complete/search?output=toolbar&q=\(searchingText.replacingOccurrences(of: " ", with: ""))")
-            else {
-                return
-        }
-        
-        if self.searchKeywords.count >= 1 {
-            let founds = self.searchKeywords
+        if self.dataSource.count >= 1 {
+            let founds = self.dataSource
                 .filter {
                     if searchingText == "" {
                         return false
@@ -36,11 +35,16 @@ extension SpotlightSearchModel {
                     }
             }
 
-            searchResultSubject.send(founds)
+            self.founds = founds
 
         } else {
+            guard let url = URL(string:"http://google.com/complete/search?output=toolbar&q=\(searchingText.replacingOccurrences(of: " ", with: ""))")
+                else {
+                    return
+            }
+            
             AutoCompleteParser.parse(url: url) { suggestion, error in
-                self.searchResultSubject.send(suggestion)
+                self.founds = suggestion
             }
         }
     }

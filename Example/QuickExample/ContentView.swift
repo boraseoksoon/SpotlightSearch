@@ -11,18 +11,25 @@ import SpotlightSearch
 import SwiftUI
 
 struct ContentView: View {
-    @ObservedObject var viewModel = TestViewModel()
+    // This is "View Model" for Spotlight Search exclusively.
+    @ObservedObject var spotlightViewModel = SpotlightSearchViewModel(initialDataSource:["Swift", "Clojure"])
     @State private var isSearching = false
+    
+    // This is your View Model Example.
+    // It should be independent of SpotlightSearchViewModel.
+    // It should never be related to SpotlightSearchViewModel.
+    // Totally separate one.
+    @ObservedObject var viewModel = LocalViewModel(helloText: "")
     
     // MARK: - Body
     
-    /// Step2: 😆 Declare `SpotlightSearch` externally.
+    /// Step2: 😆 Declare `SpotlightSearch` and inject spotlightViewModel.
     var body: some View {
         SpotlightSearch(
-            searchKeywords:viewModel.keywords,
-            isSearching:$isSearching,
-            didSearchKeyword: { print("didSearchKeyword : \($0)") },
-            didTapItem: { print("didTapItem : \($0)") }) {
+            viewModel: spotlightViewModel,
+            isSearching:$isSearching,   // To show SpotlightSearch,
+            didSearchKeyword: search,   // To update data source of SpotlightSearch,
+            didTapItem: { print("didTapItem : \($0)") }) {  // When a search item is clicked,
             /// Step3: 😎 your UI goes here.
             
             NavigationView {
@@ -35,44 +42,52 @@ struct ContentView: View {
 // MARK: - Variables
 extension ContentView {
     var yourMainView: some View {
-        Button(action: {
-            withAnimation(.easeIn(duration: 0.3)) {
-                isSearching.toggle()
+        VStack {
+            TextField("say something", text: $viewModel.helloText)
+                .padding(100)
+            
+            Button(action: {
+                withAnimation(.easeIn(duration: 0.3)) {
+                    isSearching.toggle()
+                }
+            }) {
+                
+                ZStack {
+                    Image(systemName: "magnifyingglass")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 80.0, height: 80.0)
+                        .foregroundColor(.blue)
+                }
             }
-        }) {
-            ZStack {
-                Image(systemName: "magnifyingglass")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 80.0, height: 80.0)
-                    .foregroundColor(.blue)
+        }
+        
+    }
+}
+
+// MARK: - Private Methods
+extension ContentView {
+    private func search(searchKeyword: String) {
+        DispatchQueue.global().async {
+            // Assuming you did finish your logic to fetch new data from anywhere.
+            let res = generateRandomString(upto:100)
+            
+            
+            // after that, update data source.
+            DispatchQueue.main.async {
+                // To update data source of SpotlightSearch,
+                // if not used, initialDataSource is used for your data source
+                spotlightViewModel.update(dataSource:res)
             }
         }
     }
 }
 
-class TestViewModel: ObservableObject {
-    @Published var searchText: String = ""
-    @Published var keywords: [String] = ["Objective-C",
-                                         "Clojure",
-                                         "Swift",
-                                         "Javascript",
-                                         "Python",
-                                         "Haskell",
-                                         "Scala",
-                                         "Rust",
-                                         "C",
-                                         "C++",
-                                         "Dart",
-                                         "C#",
-                                         "F#",
-                                         "LISP",
-                                         "Golang",
-                                         "Kotlin",
-                                         "Java",
-                                         "Assembly",
-                                         "안녕하세요",
-                                         "감사합니다",
-                                         "사랑합니다",
-                                         "행복하세요"]
+class LocalViewModel: ObservableObject {
+    @Published var helloText: String
+    
+    init(helloText: String) {
+        self.helloText = helloText
+    }
 }
+
