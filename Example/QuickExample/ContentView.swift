@@ -60,6 +60,8 @@ extension ContentView {
                         .foregroundColor(.blue)
                 }
             }
+            
+            Spacer()
         }
         
     }

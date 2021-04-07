@@ -151,32 +151,39 @@ extension SpotlightSearch {
                     Spacer()
                 }
             }
-                 
+            
             GeometryReader { geometry in
                 ScrollView {
-                    ForEach(viewModel.founds, id: \.self) { found in
-                        Button(action: {
-                            viewModel.searchingText = found
-                            didTapItem(found)
-                        }) {
-                            HStack {
-                                Text(found)
-                                    .font(Font.system(size: 18, weight: .light, design: .rounded))
-                                    .foregroundColor(listItemTextColor)
-                                    .shadow(color: Color.black, radius: 0.1, x: 0.1, y: 0.1)
-                                    .padding([.leading], LEADING_PADDING)
-                                    .padding([.top, .bottom, .trailing])
-                                    
-                                Spacer()
+                    LazyVStack {
+                        ForEach(viewModel.founds, id: \.self) { found in
+                            Button(action: {
+                                viewModel.searchingText = found
+                                didTapItem(found)
+                            }) {
+                                LazyHStack {
+                                    Text(found)
+                                        .font(Font.system(size: 18, weight: .light, design: .rounded))
+                                        .foregroundColor(listItemTextColor)
+                                        .shadow(color: Color.black, radius: 0.1, x: 0.1, y: 0.1)
+                                        .padding([.leading], LEADING_PADDING)
+                                        .padding([.top, .bottom, .trailing])
+                                        
+                                    Spacer()
+                                }
+                                .frame(width: geometry.size.width)
                             }
-                            .frame(width: geometry.size.width)
-                        }
-                    }.background(Color.clear)
+                        }.background(Color.clear)
+                    }
+                    
+                    Rectangle()
+                        .foregroundColor(.clear)
+                        .frame(width: UIScreen.main.bounds.size.width,
+                               height: UIScreen.main.bounds.size.height * 0.5)
                 }
             }
 
+            Spacer()
         }
-        
     }
 
     var dismissView: some View {
