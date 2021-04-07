@@ -12,24 +12,19 @@ import Combine
 
 typealias SearchResult = String
 
-public class SpotlightSearchViewModel: ObservableObject {
-    // MARK: - Publishes
-    @Published var searchingText: String = ""
-    public var founds: [String] {
-        model.founds
-    }
-    
-    public func update(dataSource: [String]) {
-        model.dataSource = dataSource
-    }
-    
+public class SpotlightSearchViewModel: ObservableObject {    
     // MARK: - Model
     @Published private var model: SpotlightSearchModel
     
-    // MARK: - Instance Variables
-    private var cancellables = Set<AnyCancellable>()
-    
+    // MARK: - Variables
+    @Published var searchingText: String = ""
+
     public var didSearchKeyword: ((String) -> Void)? = nil
+    public var founds: [SpotlightItem] {
+        model.founds
+    }
+    
+    private var cancellables = Set<AnyCancellable>()
     
     // MARK: - Initializer
     public init(initialDataSource: [String],
@@ -39,6 +34,13 @@ public class SpotlightSearchViewModel: ObservableObject {
         self.didSearchKeyword = didSearchKeyword
         
         self.bind()
+    }
+}
+
+// MARK: - Public Methods
+extension SpotlightSearchViewModel {
+    public func update(dataSource: [String]) {
+        model.dataSource = dataSource.map { SpotlightItem(name:$0) }
     }
 }
 

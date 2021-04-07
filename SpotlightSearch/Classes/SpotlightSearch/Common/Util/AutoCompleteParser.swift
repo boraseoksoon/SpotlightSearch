@@ -1,55 +1,12 @@
 //
-//  SpotlightSearchModel.swift
-//  SwiftUIExample
+//  AutoCompleteParser.swift
+//  Pods-QuickExample
 //
-//  Created by Seoksoon Jang on 2019/12/04.
-//  Copyright © 2019 CocoaPods. All rights reserved.
+//  Created by Seoksoon Jang on 2021/04/07.
 //
-
-#if os(iOS)
 
 import Foundation
 import Combine
-
-class SpotlightSearchModel {
-    public var dataSource: [String]
-    public var founds: [String] = []
-    
-    init(dataSource: [String]) {
-        self.dataSource = dataSource
-    }
-}
-
-// MARK: - Private Methods
-extension SpotlightSearchModel {
-    public func searchItems(forKeyword searchingText: String) -> Void {
-        if self.dataSource.count >= 1 {
-            let founds = self.dataSource
-                .filter {
-                    if searchingText == "" {
-                        return false
-                    } else {
-                        return $0
-                            .lowercased()
-                            .contains(searchingText.lowercased())
-                    }
-            }
-
-            self.founds = founds
-
-        } else {
-            guard let url = URL(string:"http://google.com/complete/search?output=toolbar&q=\(searchingText.replacingOccurrences(of: " ", with: ""))")
-                else {
-                    return
-            }
-            
-            AutoCompleteParser.parse(url: url) { suggestion, error in
-                self.founds = suggestion
-            }
-        }
-    }
-
-}
 
 enum AutoCompleteError: Error {
     case notFound
@@ -114,4 +71,3 @@ extension AutoCompleteParser: XMLParserDelegate {
     }
 }
 
-#endif

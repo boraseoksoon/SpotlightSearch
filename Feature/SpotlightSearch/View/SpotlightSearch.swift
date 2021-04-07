@@ -157,11 +157,11 @@ extension SpotlightSearch {
                     LazyVStack {
                         ForEach(viewModel.founds, id: \.self) { found in
                             Button(action: {
-                                viewModel.searchingText = found
-                                didTapItem(found)
+                                viewModel.searchingText = found.name
+                                didTapItem(found.name)
                             }) {
                                 HStack {
-                                    Text(found)
+                                    Text(found.name)
                                         .font(Font.system(size: 18, weight: .light, design: .rounded))
                                         .foregroundColor(listItemTextColor)
                                         .shadow(color: Color.black, radius: 0.1, x: 0.1, y: 0.1)
