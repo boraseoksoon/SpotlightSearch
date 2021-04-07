@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "SpotlightSearch",
     platforms: [
-        .iOS(.v14)
+        .iOS("14.1")
     ],
     
     products: [
