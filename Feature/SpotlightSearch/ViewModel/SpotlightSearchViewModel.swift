@@ -30,7 +30,6 @@ public class SpotlightSearchViewModel: ObservableObject {
     public init(initialDataSource: [String],
                 didSearchKeyword: ((String) -> Void)? = nil) {
         self.model = SpotlightSearchModel(dataSource: initialDataSource)
-        
         self.didSearchKeyword = didSearchKeyword
         
         self.bind()
@@ -49,12 +48,11 @@ extension SpotlightSearchViewModel {
     private func bind() {
         
         $searchingText
-            .dropFirst(1)
             .debounce(for: .seconds(0.0),
-                      scheduler: DispatchQueue.global())
-            .sink(receiveValue: { searchText in
-                self.model.searchItems(forKeyword:searchText)
-                self.didSearchKeyword?(searchText)
+                      scheduler: DispatchQueue.global(qos:.userInitiated))
+            .sink(receiveValue: { [weak self] searchText in
+                self?.model.searchItems(forKeyword:searchText)
+                self?.didSearchKeyword?(searchText)
             })
             .store(in: &cancellables)
     }
