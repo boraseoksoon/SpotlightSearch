@@ -72,7 +72,7 @@ extension ContentView {
     private func search(searchKeyword: String) {
         DispatchQueue.global().async {
             // Assuming you did finish your logic to fetch new data from anywhere.
-            let res = generateRandomString(upto:100)
+            let res = generateRandomString(upto:500, isDuplicateAllowed: true)
             
             
             // after that, update data source.

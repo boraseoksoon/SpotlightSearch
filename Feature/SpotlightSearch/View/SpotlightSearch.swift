@@ -154,7 +154,7 @@ extension SpotlightSearch {
             
             GeometryReader { geometry in
                 ScrollView {
-                    LazyVStack {
+                    VStack {
                         ForEach(viewModel.founds, id: \.self) { found in
                             Button(action: {
                                 viewModel.searchingText = found.name
