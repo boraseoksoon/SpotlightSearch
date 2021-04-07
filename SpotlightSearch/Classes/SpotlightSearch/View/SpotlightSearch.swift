@@ -160,19 +160,21 @@ extension SpotlightSearch {
                                 viewModel.searchingText = found
                                 didTapItem(found)
                             }) {
-                                LazyHStack {
+                                HStack {
                                     Text(found)
                                         .font(Font.system(size: 18, weight: .light, design: .rounded))
                                         .foregroundColor(listItemTextColor)
                                         .shadow(color: Color.black, radius: 0.1, x: 0.1, y: 0.1)
                                         .padding([.leading], LEADING_PADDING)
                                         .padding([.top, .bottom, .trailing])
-                                        
+                                    
                                     Spacer()
                                 }
                                 .frame(width: geometry.size.width)
                             }
-                        }.background(Color.clear)
+                        }
+                        .background(Color.clear)
+                        .id(UUID().uuidString)
                     }
                     
                     Rectangle()
