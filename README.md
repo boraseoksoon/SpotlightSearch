@@ -7,7 +7,6 @@
 <br>
 
 # SpotlightSearch
-Spotlight Search UI written in SwiftUI and Combine.
 
 <!-- [![CI Status](https://img.shields.io/travis/boraseoksoon/SpotlightSearch.svg?style=flat)](https://travis-ci.org/boraseoksoon/SpotlightSearch) -->
 [![Version](https://img.shields.io/cocoapods/v/SpotlightSearch.svg?style=flat)](https://cocoapods.org/pods/SpotlightSearch)
@@ -15,6 +14,8 @@ Spotlight Search UI written in SwiftUI and Combine.
 [![Platform](https://img.shields.io/cocoapods/p/SpotlightSearch.svg?style=flat)](https://cocoapods.org/pods/SpotlightSearch)
 
 a SwiftUI library that helps you search on iOS in a similar way MacOS Spotlight does.<br>
+
+SpotlightSearch is purely written in SwiftUI and Combine.
 
 Screenshots
 -----------
@@ -221,7 +222,7 @@ The output is as follows:
 ## Features
 
 - [x] Written in SwiftUI and Combine 100%  
-- [x] Search items on iOS in a similar way that macOS Spotlight does.
+- [x] Provides Search UI on iOS in a similar way that macOS Spotlight does.
 - [x] One liner, no brainer API
 
 ## Installation
