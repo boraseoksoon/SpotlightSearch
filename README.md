@@ -49,10 +49,26 @@ var body: some View {
         didSearchKeyword: search,
         didTapItem: { print("didTapItem : \($0)") }) {
             /// 😎 your main UI goes here.
-            NavigationView {
-                yourMainView
-            }
-        .navigationViewStyle(StackNavigationViewStyle())
+            Text("Your all main views goes here")
+        }
+}
+
+```
+
+If you would like use NavigationView, 
+
+```swift
+
+var body: some View {
+    NavigationView {
+        SpotlightSearch(
+            viewModel: spotlightViewModel,
+            isSearching:$isSearching,
+            didSearchKeyword: search,
+            didTapItem: { print("didTapItem : \($0)") }) {
+                /// 😎 your main UI goes here.
+                Text("Your all main views goes here")
+        }
     }
 }
 
