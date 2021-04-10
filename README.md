@@ -259,23 +259,26 @@ SpotlightSearch is available under the MIT license. See the LICENSE file for mor
 
 ## References 
 
-## References 
+### Observers
 
 [Observers](https://apps.apple.com/us/app/observers/id1560569802) : 
 Location-based video browsing iOS app for showing what it may looks like!
-
-![Image of Yaktocat](https://is4-ssl.mzstatic.com/image/thumb/PurpleSource114/v4/2f/f7/22/2ff72212-258e-cef7-a516-10403cd8fe38/4e32ac2b-2fd1-42d1-8c1d-934ac5595bb1_Simulator_Screen_Shot_-_iPhone_12_Pro_Max_-_2021-04-07_at_17.48.26.png/1284x2778bb.png)
-
-![Image of Yaktocat](https://is5-ssl.mzstatic.com/image/thumb/PurpleSource114/v4/f5/e0/31/f5e031be-6ea1-fbe7-01c9-b02c16e19833/dde58902-490f-46ab-8251-06b6e4575db7_Simulator_Screen_Shot_-_iPhone_12_Pro_Max_-_2021-04-07_at_19.00.45.png/1284x2778bb.png)
 
 ![Image of Yaktocat](https://is2-ssl.mzstatic.com/image/thumb/PurpleSource114/v4/c7/3c/98/c73c983f-dce4-ae3c-f0ce-9609e5a2f509/440229b7-e3d3-4b0a-8c3e-59dedf901b0c_Simulator_Screen_Shot_-_iPhone_12_Pro_Max_-_2021-04-07_at_17.51.01.png/1284x2778bb.png)
 
 ![Image of Yaktocat](https://is4-ssl.mzstatic.com/image/thumb/PurpleSource124/v4/d3/d6/c6/d3d6c6dd-21e3-e29f-2181-f3591b36ab15/e0b39a29-3aa3-450b-a2b2-72a7a41b917d_Simulator_Screen_Shot_-_iPad_Pro__U002812.9-inch_U0029__U00284th_generation_U0029_-_2021-04-07_at_18.24.34.png/2048x2732bb.png)
 
+![Image of Yaktocat](https://is5-ssl.mzstatic.com/image/thumb/PurpleSource114/v4/f5/e0/31/f5e031be-6ea1-fbe7-01c9-b02c16e19833/dde58902-490f-46ab-8251-06b6e4575db7_Simulator_Screen_Shot_-_iPhone_12_Pro_Max_-_2021-04-07_at_19.00.45.png/1284x2778bb.png)
+
+<br><br><br>
+
+### PhotoCell
+
 [PhotoCell](https://apps.apple.com/us/app/observable/id1488022000?ls=1) : 
 Time and Location-based photo browsing iOS app where you can download the photos and edit as you like for free.
 
-<img align="left" width="240" height="428" src="https://firebasestorage.googleapis.com/v0/b/boraseoksoon-ff7d3.appspot.com/o/BSZoomGridScrollView%2Fo1.png?alt=media&token=f5003b58-f10f-4858-bb27-f4b0e06f6f70">
-<img align="left" width="240" height="428" src="https://firebasestorage.googleapis.com/v0/b/boraseoksoon-ff7d3.appspot.com/o/BSZoomGridScrollView%2Fo2.png?alt=media&token=6374ba2c-0e58-478f-81a8-11eb5a5662e2">
-<img align="left" width="240" height="428" src="https://firebasestorage.googleapis.com/v0/b/boraseoksoon-ff7d3.appspot.com/o/BSZoomGridScrollView%2Fo4.png?alt=media&token=11e22574-b854-45bf-a0a3-4b0c596db3f9">
+<img align="left" src="https://firebasestorage.googleapis.com/v0/b/boraseoksoon-ff7d3.appspot.com/o/BSZoomGridScrollView%2Fo1.png?alt=media&token=f5003b58-f10f-4858-bb27-f4b0e06f6f70"> 
 
+<img align="left" src="https://firebasestorage.googleapis.com/v0/b/boraseoksoon-ff7d3.appspot.com/o/BSZoomGridScrollView%2Fo2.png?alt=media&token=6374ba2c-0e58-478f-81a8-11eb5a5662e2"> 
+
+<img align="left" src="https://firebasestorage.googleapis.com/v0/b/boraseoksoon-ff7d3.appspot.com/o/BSZoomGridScrollView%2Fo4.png?alt=media&token=11e22574-b854-45bf-a0a3-4b0c596db3f9">
