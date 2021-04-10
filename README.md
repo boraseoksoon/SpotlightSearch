@@ -14,7 +14,7 @@ Spotlight Search UI written in SwiftUI and Combine.
 [![License](https://img.shields.io/cocoapods/l/SpotlightSearch.svg?style=flat)](https://cocoapods.org/pods/SpotlightSearch)
 [![Platform](https://img.shields.io/cocoapods/p/SpotlightSearch.svg?style=flat)](https://cocoapods.org/pods/SpotlightSearch)
 
-a SwiftUI library that helps you search on iOS in a similar way MacOS Spotligt does.<br>
+a SwiftUI library that helps you search on iOS in a similar way MacOS Spotlight does.<br>
 
 Screenshots
 -----------
@@ -41,38 +41,21 @@ At a Glance
 Drop it. 
 
 ```swift
-// MARK: - Body
-var body: some View {
-    var body: some View {
-        SpotlightSearch(
-            searchKeywords:viewModel.keywords,
-            isSearching:$isSearching,
-            didSearchKeyword: { print("didSearchKeyword : \($0)") },
-            didTapItem: { print("didTapItem : \($0)") }) {
-                Text("Your main view goes here")
-        }
-    }
-}
-```
 
-If you use NavigationView, 
-
-```swift
-// MARK: - Body
 var body: some View {
-    var body: some View {
-        // NavigationView needs to be declared externally
-        NavigationView {
-            SpotlightSearch(
-                searchKeywords:testViewModel.keywords,
-                isSearching:$isSearching,
-                didSearchKeyword: { print("didSearchKeyword : \($0)") },
-                didTapItem: { print("didTapItem : \($0)") }) {
-                    Text("Your main view goes here")
+    SpotlightSearch(
+        viewModel: spotlightViewModel,
+        isSearching:$isSearching,
+        didSearchKeyword: search,
+        didTapItem: { print("didTapItem : \($0)") }) {
+            /// 😎 your main UI goes here.
+            NavigationView {
+                yourMainView
             }
-        }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
 }
+
 ```
 
 <br>
@@ -84,7 +67,7 @@ It includes examples for UIKit as well as SwiftUI.
 
 ## Requirements
 
-- iOS 13.0 or later
+- iOS 14.1 or later
 - Swift 5.0 or later
 - Xcode 11.0 or later
 
@@ -102,26 +85,48 @@ In 'QuickExample' directory, there are sample codes.
 
 ```Swift
 
-/// Step1: 😆 import `SpotlightSearch`!
+//
+//  ContentView.swift
+//  QuickExample
+//
+//  Created by Seoksoon Jang on 2019/12/05.
+//  Copyright © 2019 Seoksoon Jang. All rights reserved.
+//
+
+/// Step0: 😆 import `SpotlightSearch`!
 import SpotlightSearch
 import SwiftUI
 
 struct ContentView: View {
-    @ObservedObject var viewModel = TestViewModel()
+    /// Step1: 🙃 This is "View Model" for Spotlight Search exclusively. 
+    /// InitialDataSource can be mutated in runtime. 
+    /// In order to mutate, use update method of SpotlightSearchViewModel. (refer to code example down below)
+    /// InitialDataSource can be []. Then internally, Google auto suggestion is used out of box.
+    
+    @ObservedObject var spotlightViewModel = SpotlightSearchViewModel(initialDataSource:["Swift", "Clojure"])
     @State private var isSearching = false
+    
+    // This is your View Model Example.
+    // It should be independent of SpotlightSearchViewModel.
+    // It should never be related to SpotlightSearchViewModel.
+    // Totally separate one.
+    @ObservedObject var viewModel = LocalViewModel(helloText: "")
     
     // MARK: - Body
     
-    /// Step2: 😆 Declare `SpotlightSearch` externally.
+    /// Step2: 😆 Declare `SpotlightSearch` and inject spotlightViewModel.
     var body: some View {
         SpotlightSearch(
-            searchKeywords:viewModel.keywords,
-            isSearching:$isSearching,
-            didSearchKeyword: { print("didSearchKeyword : \($0)") },
-            didTapItem: { print("didTapItem : \($0)") }) {
-
-                /// Step3: 😎 your UI goes here in the closure. All Set!
+            viewModel: spotlightViewModel,
+            isSearching:$isSearching,   // To show SpotlightSearch,
+            didSearchKeyword: search,   // To update data source of SpotlightSearch,
+            didTapItem: { print("didTapItem : \($0)") }) {  // When a search item is clicked,
+            /// Step3: 😎 your UI goes here.
+            
+            NavigationView {
                 yourMainView
+            }
+            .navigationViewStyle(StackNavigationViewStyle())
         }
     }
 }
@@ -129,47 +134,66 @@ struct ContentView: View {
 // MARK: - Variables
 extension ContentView {
     var yourMainView: some View {
-        Button(action: {
-            withAnimation(.easeIn(duration: 0.3)) {
-                isSearching.toggle()
+        VStack {
+            TextField("say something", text: $viewModel.helloText)
+                .padding(100)
+            
+            Button(action: {
+                withAnimation(.easeIn(duration: 0.3)) {
+                    isSearching.toggle()
+                }
+            }) {
+                
+                ZStack {
+                    Image(systemName: "magnifyingglass")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 80.0, height: 80.0)
+                        .foregroundColor(.blue)
+                }
             }
-        }) {
-            ZStack {
-                Image(systemName: "magnifyingglass")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 80.0, height: 80.0)
-                    .foregroundColor(.blue)
+            
+            Spacer()
+        }
+        
+    }
+}
+
+// MARK: - Private Methods
+extension ContentView {
+    /// Optional Step: 🙃
+    /// InitialDataSource of SpotlightSearchViewModel can be mutated in runtime. 
+    /// In order to mutate, use update method of SpotlightSearchViewModel. (refer to code example down below)
+    /// InitialDataSource can be []. Then internally, Google auto suggestion is used out of box.
+    
+    private func search(searchKeyword: String) {
+        DispatchQueue.global().async {
+            // Assuming you did finish your logic to fetch new data from anywhere.
+            let res = generateRandomString(upto:500, isDuplicateAllowed: true)
+            
+            
+            // after that, update data source.
+            DispatchQueue.main.async {
+                // To update data source of SpotlightSearch,
+                // if not used, initialDataSource is used for your data source
+                spotlightViewModel.update(dataSource:res)
             }
         }
     }
 }
 
-class TestViewModel: ObservableObject {
-    @Published var searchText: String = ""
-    @Published var keywords: [String] = ["Objective-C",
-                                         "Clojure",
-                                         "Swift",
-                                         "Javascript",
-                                         "Python",
-                                         "Haskell",
-                                         "Scala",
-                                         "Rust",
-                                         "C",
-                                         "C++",
-                                         "Dart",
-                                         "C#",
-                                         "F#",
-                                         "LISP",
-                                         "Golang",
-                                         "Kotlin",
-                                         "Java",
-                                         "Assembly",
-                                         "안녕하세요",
-                                         "감사합니다",
-                                         "사랑합니다",
-                                         "행복하세요"]
+// This is your View Model Example.
+// It should be independent of SpotlightSearchViewModel.
+// It should never be related to SpotlightSearchViewModel.
+// Totally separate one.
+class LocalViewModel: ObservableObject {
+    @Published var helloText: String
+    
+    init(helloText: String) {
+        self.helloText = helloText
+    }
 }
+
 
 
 ```
@@ -234,6 +258,14 @@ SpotlightSearch is available under the MIT license. See the LICENSE file for mor
 
 
 ## References 
+
+[Observers](https://apps.apple.com/us/app/observers/id1560569802) : 
+Location-based video browsing iOS app for showing what it may looks like!
+
+<img align="left" width="240" height="428" src="https://is5-ssl.mzstatic.com/image/thumb/PurpleSource114/v4/f5/e0/31/f5e031be-6ea1-fbe7-01c9-b02c16e19833/dde58902-490f-46ab-8251-06b6e4575db7_Simulator_Screen_Shot_-_iPhone_12_Pro_Max_-_2021-04-07_at_19.00.45.png/1284x2778bb.png">
+<img align="left" width="240" height="428" src="https://is4-ssl.mzstatic.com/image/thumb/PurpleSource114/v4/2f/f7/22/2ff72212-258e-cef7-a516-10403cd8fe38/4e32ac2b-2fd1-42d1-8c1d-934ac5595bb1_Simulator_Screen_Shot_-_iPhone_12_Pro_Max_-_2021-04-07_at_17.48.26.png/1284x2778bb.png">
+<img align="left" width="240" height="428" src="https://is2-ssl.mzstatic.com/image/thumb/PurpleSource114/v4/c7/3c/98/c73c983f-dce4-ae3c-f0ce-9609e5a2f509/440229b7-e3d3-4b0a-8c3e-59dedf901b0c_Simulator_Screen_Shot_-_iPhone_12_Pro_Max_-_2021-04-07_at_17.51.01.png/1284x2778bb.png">
+<img align="left" width="240" height="428" src="https://is4-ssl.mzstatic.com/image/thumb/PurpleSource124/v4/d3/d6/c6/d3d6c6dd-21e3-e29f-2181-f3591b36ab15/e0b39a29-3aa3-450b-a2b2-72a7a41b917d_Simulator_Screen_Shot_-_iPad_Pro__U002812.9-inch_U0029__U00284th_generation_U0029_-_2021-04-07_at_18.24.34.png/2048x2732bb.png">
 
 [PhotoCell](https://apps.apple.com/us/app/observable/id1488022000?ls=1) : 
 Time and Location-based photo browsing iOS app where you can download the photos and edit as you like for free.
