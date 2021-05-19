@@ -21,21 +21,18 @@ struct ContentView: View {
     // Totally separate one.
     @ObservedObject var viewModel = LocalViewModel(helloText: "")
     
+
     // MARK: - Body
     
-    /// Step2: 😆 Declare `SpotlightSearch` and inject spotlightViewModel.
     var body: some View {
         SpotlightSearch(
             viewModel: spotlightViewModel,
-            isSearching:$isSearching,   // To show SpotlightSearch,
-            didSearchKeyword: search,   // To update data source of SpotlightSearch,
-            didTapItem: { print("didTapItem : \($0)") }) {  // When a search item is clicked,
-            /// Step3: 😎 your UI goes here.
-            
-            NavigationView {
-                yourMainView
+            isSearching:$isSearching,
+            didSearchKeyword: search,
+            didTapItem: { print("didTapItem : \($0)") }) {
+                /// 😎 your main UI goes here.
+                Text("Your all main views goes here")
             }
-        }
     }
 }
 
